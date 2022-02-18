@@ -2,12 +2,15 @@
 <html lang="ro">
 
 <head>
-    <title> Proiect </title>
+    <title> Librarie Web </title>
+
+    <!-- meta tags  -->
     <meta charset="utf-8">
     <meta name="author" content="Visan Alexandru">
     <meta name="keywords" content="magazin,librarie online,carti">
     <meta name="description" content="Librarie Web">
 
+    <!-- set up favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="./resurse/ico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./resurse/ico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./resurse/ico/favicon-16x16.png">
@@ -17,86 +20,94 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-config" content="./resurse/ico/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+
 </head>
 
 <body>
-
     <header>
         <h1> Librarie Web</h1>
         <nav>
             <ul>
+                <!-- Home option-->
                 <li>
                     <div> Acasa </div>
-                    <ul>
 
-                        <li> 
-                            <a href="#Welcome"> Salut</a>
+                    <ul>
+                        <li>
+                            <a href="#Lista"> Cele mai vandute</a>
                         </li>
 
-                        <li> 
-                            <a href="#Orar"> Orar</a>
+                        <li>
+                            <a href="#Citat"> Citatul zilei</a>
                         </li>
 
                     </ul>
+
                 </li>
 
+
+                <!-- About link-->
                 <li>
                     <a href="despre.html"> Despre</a>
                 </li>
 
-                 <li>
+
+                <!-- Products link-->
+                <li>
                     <a href="produse.html"> Produse</a>
-                </li>              
+                </li>
 
             </ul>
 
         </nav>
-
     </header>
 
 
 
     <main>
-        <section id="Welcome">
 
+        <!-- List section-->
+        <section id="Lista">
             <h2>
-                Salut
+                Cele mai vandute
             </h2>
 
-            <p> Lista de carti</p>
-
             <ol>
-                <li> <p> Batranul si marea</p></li>
-                <li> <p> Adio, arme</p></li>
+                <li>
+                    <figure>
+                        <figcaption> Batranul si marea</figcaption>
+                        <source srcset="resurse/img/batranul-si-marea600x600" media="(max-width:600)"/>
+                        <img src="resurse/img/batranul-si-marea1200x1200.jpg" alt="text" width="200" height="200"/>
+                    </figure>
+                </li>
+
+                <li>
+                    <p> Adio, arme</p>
+                </li>
+
+                <li>
+                    <p> Don Quixote </p>
+                </li>
             </ol>
-
-            
         </section>
 
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-        <section id="Orar">
-            <h2> Orar</h2>            
 
-            <section>
-                <h3> Zile de lucru</h3>
-                <p> Luni-Vineri</p>
-            </section>
+        <!-- Quote section-->
+        <section id="Citat">
+            <h2> Citatul zilei</h2>
+            <blockquote>
+                <p>Don't judge each day by the harvest you reap, but by the seeds you plant.</p>
+            </blockquote>
+            <p> &mdash; Robert Louis Stevenson</p>
         </section>
-
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-        <figure>
-            <picture>
-                <img src="resurse/ico/android-chrome-256x256.png" alt="text alternativ">
-            </picture>
-
-        </figure>
 
     </main>
-    <br>
+
+
 
     <footer>
+
 
 
 
