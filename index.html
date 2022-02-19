@@ -7,7 +7,7 @@
     <!-- meta tags  -->
     <meta charset="utf-8">
     <meta name="author" content="Visan Alexandru">
-    <meta name="keywords" content="librarie web, carti, cumpara, citat">
+    <meta name="keywords" content="librarie web, cărti, cumpăra, citat, gasește, reduceri">
     <meta name="description" content="Librarie Web">
 
     <!-- set up favicon-->
@@ -26,50 +26,100 @@
 <body>
     <header>
         <h1> Librarie Web</h1>
-        <nav>
-            <ul>
-                <!-- Home option-->
-                <li>
-                    <div> Acasa </div>
+        <section id="Meniu">
+            <h2> Meniu</h2>
+            <nav>
+                <ul>
+                    <!-- Home option-->
+                    <li>
+                        <div> Acasa </div>
 
-                    <ul>
-                        <li>
-                            <a href="#Lista"> Cele mai vandute carti</a>
-                        </li>
+                        <ul>
+                            <li>
+                                <a href="#Salut"> Salut!</a>
+                            </li>
+                            <li>
+                                <a href="#Lista"> Cele mai vandute carti</a>
+                            </li>
 
-                        <li>
-                            <a href="#Citat"> Citatul zilei</a>
-                        </li>
+                            <li>
+                                <a href="#Citat"> Citatul zilei</a>
+                            </li>
 
-                    </ul>
+                            <li>
+                                <a href="#Contact"> Contact</a>
+                            </li>
+                        </ul>
 
-                </li>
-
-
-                <!-- About link-->
-                <li>
-                    <a href="despre.html"> Despre</a>
-                </li>
+                    </li>
 
 
-                <!-- Products link-->
-                <li>
-                    <a href="cumpara.html"> Cumpara</a>
-                </li>
+                    <!-- About link-->
+                    <li>
+                        <a href="despre.html"> Despre</a>
+                    </li>
 
-            </ul>
 
-        </nav>
+                    <!-- Products link-->
+                    <li>
+                        <a href="cumpara.html"> Cumpără</a>
+                    </li>
+
+                </ul>
+
+            </nav>
+        </section>
     </header>
 
 
 
     <main>
+        <section id="Salut">
+            <h2> Salut!</h2>
+            <p> Bine ai venit la libraria mea web. Aici vei putea <b> găsi si cumpăra </b> carțile tale preferate. </p>
+            <p> <strong> Nu rata noile reduceri la carti <abbr title="Science-Fiction"> SF </abbr> !</strong> </p>
+
+            <section>
+                <h3> Motivatie: </h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vehicula blandit turpis eu blandit.
+                    Aenean vulputate faucibus dui, sed pellentesque est egestas quis. Nunc accumsan bibendum mauris, at
+                    imperdiet arcu. Praesent tincidunt venenatis commodo. Duis non consequat lorem, quis dictum sapien.
+                    Ut in ex magna. Quisque ut dui est.
+
+                    Donec tincidunt sollicitudin nibh eget mollis. Etiam suscipit luctus libero, et tempor nulla porta
+                    ut. Praesent imperdiet gravida scelerisque. In sodales lorem at libero sollicitudin fermentum.
+                    Suspendisse potenti. Aliquam eu pretium dolor. Vivamus sit amet neque elit. Cras venenatis dui non
+                    lorem malesuada, ac facilisis velit porta. Curabitur semper nulla id massa eleifend venenatis. Duis
+                    malesuada augue et diam convallis ultrices id eget enim. Nunc tincidunt est sollicitudin, semper
+                    felis vitae, volutpat nisi.
+
+                    Praesent venenatis vestibulum tortor, quis faucibus felis iaculis posuere. Sed velit mauris, iaculis
+                    nec lobortis eu, dapibus ut augue. Mauris quis lacus odio. Integer quis varius ipsum, et varius
+                    velit. Fusce lacus libero, lobortis in odio nec, convallis dictum metus. Donec nunc dui, ultricies
+                    sed massa non, feugiat vulputate metus. Fusce convallis in dolor at euismod. Fusce aliquet felis
+                    velit, vel mollis arcu pulvinar a. Cras nisl purus, feugiat sed augue interdum, pharetra mattis
+                    nisl. Proin a volutpat elit. Aenean interdum justo in ipsum pharetra faucibus. Donec id nisl dolor.
+                </p>
+            </section>
+
+            <section>
+                <h3> Parteneri</h3>
+
+                <p>
+                    Link catre
+                    <a href="https://google.com" target="_blank"> partenerii nostrii</a>
+                </p>
+            </section>
+
+
+
+        </section>
 
         <!-- List section-->
         <section id="Lista">
             <h2>
-                Cele mai vandute carti
+                Cele mai vandute carți
             </h2>
 
             <ol>
@@ -113,24 +163,54 @@
             <p> &mdash; Robert Louis Stevenson</p>
         </section>
 
-    </main>
+        <section id="Ecranizari">
+            <h2> Cele mai bune ecranizari</h2>
+            <ul>
+                <li>
+                    <h3> Alice in Wonderland</h3>
+                    <iframe src="https://www.youtube.com/embed/zeIXfdogJbA" name="ifr"></iframe>
+                </li>
 
-    <br>
+                <li>
+                    <h3> A farewell to arms</h3>
+                    <iframe src="https://www.youtube.com/embed/KT1RIeg5WL0" name="ifr"></iframe>
+                </li>
+
+            </ul>
+        </section>
+
+    </main>
 
     <footer>
         <section id="Contact">
             <h2> Contact</h2>
+
             <section>
-                <h3> Telefon</h3>
-                <a href="tel:+40766-714-939"> 0766-714-939 </a>
+                <h3> Informatii de contact</h3>
+
+                <p>
+                    Telefon:
+                    <a href="tel:+40766-714-939"> 0766-714-939 </a>
+                </p>
+
+                <p>
+                    Mail:
+                    <a href="mailto:abc@example.com">abc@example.com</a>
+                </p>
+
             </section>
+
+            <section>
+                <h3> Program</h3>
+                <p>Luni-Miercuri 9:30-19:30</p>
+            </section>
+
         </section>
 
-
+        <a href="#Meniu"> Inapoi la inceput</a>
     </footer>
 
 
 </body>
-
 
 </html>
