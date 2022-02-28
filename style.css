@@ -1,0 +1,78 @@
+body{
+    --dark:#131C1A; /* for text */
+    --light-blue:#B4D9D2; /* background color*/
+    --soft-blue:#90D1C5;
+    --medium-blue:#71A39A;
+    --dark-blue:#15574B; /* for border */
+
+    background-color: var(--light-blue);
+    color: var(--color);
+}
+
+#grid{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-areas: "salut salut salut salut"
+                         "utilizatori utilizator utilizator server"
+                         "calendar calendar tabel tabel"
+                         "anunturi anunturi tabel tabel"
+                         "lista lista lista lista"
+                         "citat citat electronice recenzii"
+                         "ecranizari ecranizari ecranizari ecranizari"
+                        
+}
+
+
+
+#Salut{
+    grid-area: salut;
+}
+
+#Utilizatori{
+    grid-area: utilizatori;
+}
+#Utilizator{
+    grid-area: utilizator;
+}
+#Server{
+    grid-area: server;
+}
+#Tabel{
+    grid-area: tabel;
+}
+
+#Calendar{
+    grid-area: calendar;
+}
+
+#Anunturi{
+    grid-area: anunturi;
+}
+#Lista{
+    grid-area:lista
+}
+
+#Citat{
+    grid-area:citat
+}
+
+#Electronice{
+    grid-area:electronice
+}
+
+#Recenzii{
+    grid-area: recenzii;
+}
+
+#Ecranizari{
+    grid-area: ecranizari;
+}
+
+section h2{
+    background-color: var(--medium-blue);
+    border: 1px solid  darkblue;
+}
+section{
+    padding: 2px;
+    border: 1px solid;
+}

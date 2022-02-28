@@ -21,6 +21,9 @@
     <meta name="msapplication-config" content="./resurse/ico/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- link css style sheet-->
+    <link href="style.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -36,7 +39,7 @@
 
                         <ul>
                             <li>
-                                <a href="#Salut"> Salut!</a>
+                                <a href="#Salut"> Bine ati venit!</a>
                             </li>
                             <li>
                                 <a href="#Lista"> Cele mai vandute carti</a>
@@ -82,156 +85,204 @@
 
 
     <main>
-        <section id="Salut">
-            <h2> Salut!</h2>
-            <p> Bine ai venit la libraria mea web. Aici vei putea <b> găsi si cumpăra </b> carțile tale preferate. </p>
-            <p> <strong> Nu rata noile reduceri la carti <abbr title="Science-Fiction"> SF </abbr> !</strong> </p>
+        <div id="grid">
+            <section id="Salut">
+                <h2> Bine ați venit!</h2>
+                <p> Bine ați venit la libraria mea web. Aici veți putea <b> găsi si cumpăra </b> carțile voastre
+                    preferate. </p>
+                <p> <strong> Nu rata noile reduceri la carti <abbr title="Science-Fiction"> SF </abbr> !</strong> </p>
 
-            <section>
-                <h3> Motivatie: </h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vehicula blandit turpis eu blandit.
-                    Aenean vulputate faucibus dui, sed pellentesque est egestas quis. Nunc accumsan bibendum mauris, at
-                    imperdiet arcu. Praesent tincidunt venenatis commodo. Duis non consequat lorem, quis dictum sapien.
-                    Ut in ex magna. Quisque ut dui est.
+                <section>
+                    <h3> Motivatie: </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vehicula blandit turpis eu
+                        blandit.
+                        Aenean vulputate faucibus dui, sed pellentesque est egestas quis. Nunc accumsan bibendum mauris,
+                        at
+                        imperdiet arcu. Praesent tincidunt venenatis commodo. Duis non consequat lorem, quis dictum
+                        sapien.
+                        Ut in ex magna. Quisque ut dui est.
 
-                    Donec tincidunt sollicitudin nibh eget mollis. Etiam suscipit luctus libero, et tempor nulla porta
-                    ut. Praesent imperdiet gravida scelerisque. In sodales lorem at libero sollicitudin fermentum.
-                    Suspendisse potenti. Aliquam eu pretium dolor. Vivamus sit amet neque elit. Cras venenatis dui non
-                    lorem malesuada, ac facilisis velit porta. Curabitur semper nulla id massa eleifend venenatis. Duis
-                    malesuada augue et diam convallis ultrices id eget enim. Nunc tincidunt est sollicitudin, semper
-                    felis vitae, volutpat nisi.
+                        Donec tincidunt sollicitudin nibh eget mollis. Etiam suscipit luctus libero, et tempor nulla
+                        porta
+                        ut. Praesent imperdiet gravida scelerisque. In sodales lorem at libero sollicitudin fermentum.
+                        Suspendisse potenti. Aliquam eu pretium dolor. Vivamus sit amet neque elit. Cras venenatis dui
+                        non
+                        lorem malesuada, ac facilisis velit porta. Curabitur semper nulla id massa eleifend venenatis.
+                        Duis
+                        malesuada augue et diam convallis ultrices id eget enim. Nunc tincidunt est sollicitudin, semper
+                        felis vitae, volutpat nisi.
 
-                    Praesent venenatis vestibulum tortor, quis faucibus felis iaculis posuere. Sed velit mauris, iaculis
-                    nec lobortis eu, dapibus ut augue. Mauris quis lacus odio. Integer quis varius ipsum, et varius
-                    velit. Fusce lacus libero, lobortis in odio nec, convallis dictum metus. Donec nunc dui, ultricies
-                    sed massa non, feugiat vulputate metus. Fusce convallis in dolor at euismod. Fusce aliquet felis
-                    velit, vel mollis arcu pulvinar a. Cras nisl purus, feugiat sed augue interdum, pharetra mattis
-                    nisl. Proin a volutpat elit. Aenean interdum justo in ipsum pharetra faucibus. Donec id nisl dolor.
-                </p>
+                        Praesent venenatis vestibulum tortor, quis faucibus felis iaculis posuere. Sed velit mauris,
+                        iaculis
+                        nec lobortis eu, dapibus ut augue. Mauris quis lacus odio. Integer quis varius ipsum, et varius
+                        velit. Fusce lacus libero, lobortis in odio nec, convallis dictum metus. Donec nunc dui,
+                        ultricies
+                        sed massa non, feugiat vulputate metus. Fusce convallis in dolor at euismod. Fusce aliquet felis
+                        velit, vel mollis arcu pulvinar a. Cras nisl purus, feugiat sed augue interdum, pharetra mattis
+                        nisl. Proin a volutpat elit. Aenean interdum justo in ipsum pharetra faucibus. Donec id nisl
+                        dolor.
+                    </p>
+                </section>
+
+                <section>
+                    <h3> Parteneri</h3>
+
+                    <p>
+                        Link catre
+                        <a href="https://google.com" target="_blank"> partenerii nostrii</a>
+                    </p>
+                </section>
+
+
+
             </section>
 
-            <section>
-                <h3> Parteneri</h3>
+            <!-- List section-->
+            <section id="Lista">
+                <h2>
+                    Cele mai vandute carți
+                </h2>
 
-                <p>
-                    Link catre
-                    <a href="https://google.com" target="_blank"> partenerii nostrii</a>
-                </p>
+                <ol>
+                    <!-- The list of books-->
+                    <li>
+                        <figure>
+                            <figcaption> 20.000 de Leghe sub Mari</figcaption>
+
+                            <picture>
+                                <source srcset="resurse/img/20000-leghe800x800.jpg" media="(max-width:800px)" />
+                                <source srcset="resurse/img/20000-leghe1000x1000.jpg" media="(max-width:1000px)" />
+                                <img src="resurse/img/20000-leghe1200x1200.jpg" alt="text" width="400" height="400" />
+                            </picture>
+
+                        </figure>
+
+                    </li>
+
+                    <li>
+                        <figure>
+                            <figcaption> Don Quixote</figcaption>
+
+                            <picture>
+                                <source srcset="resurse/img/don-quixote800x800.jpg" media="(max-width:800px)" />
+                                <source srcset="resurse/img/don-quixote1000x1000.jpg" media="(max-width:1000px)" />
+                                <img src="resurse/img/don-quixote1200x1200.jpg" alt="quixote" width="400"
+                                    height="400" />
+                            </picture>
+                        </figure>
+                    </li>
+                </ol>
+            </section>
+
+            
+            <section id="Utilizatori">
+                <h2> Utilizatori Online</h2>
+                <p> Placeholder pentru utilizatori online</p>
             </section>
 
 
+            <section id="Utilizator">
+                <h2> Statistici</h2>
+                <p> Placeholder pentru statistici utilizator</p>
+            </section>
 
-        </section>
+            <section id="Server">
+                <h2> Date despre site</h2>
+                <p> Placeholder pentru date despre site</p>
+            </section>
 
-        <!-- List section-->
-        <section id="Lista">
-            <h2>
-                Cele mai vandute carți
-            </h2>
+            <section id="Calendar">
+                <h2> Calendar de evenimente</h2>
+                <p> Placeholder pentru evenimente</p>
+            </section>
 
-            <ol>
-                <!-- The list of books-->
-                <li>
-                    <figure>
-                        <figcaption> 20.000 de Leghe sub Mari</figcaption>
+            <section id="Tabel">
+                <h2> Tabel</h2>
+                <p> Placeholder pentru tabel</p>
+            </section>
 
-                        <picture>
-                            <source srcset="resurse/img/20000-leghe800x800.jpg" media="(max-width:800px)" />
-                            <source srcset="resurse/img/20000-leghe1000x1000.jpg" media="(max-width:1000px)" />
-                            <img src="resurse/img/20000-leghe1200x1200.jpg" alt="text" width="400" height="400" />
-                        </picture>
+            <section id="Anunturi">
+                <h2> Anunturi</h2>
+                <p> Placeholder pentru anunturi</p>
+            </section>
+        
 
-                    </figure>
+            <!-- Quote section-->
+            <section id="Citat">
+                <h2> Citatul zilei</h2>
+                <blockquote>
+                    <q>Don't judge each day by the harvest you reap, but by the seeds you plant.</q>
+                </blockquote>
+                <p> &mdash; Robert Louis Stevenson</p>
+            </section>
 
-                </li>
+            <section id="Ecranizari">
+                <h2> Cele mai bune ecranizări</h2>
+                <ul>
+                    <li>
+                        <h3> Alice in Wonderland</h3>
+                        <iframe src="https://www.youtube.com/embed/zeIXfdogJbA" name="ifr" width="500"
+                            height="500"></iframe>
+                    </li>
 
-                <li>
-                    <figure>
-                        <figcaption> Don Quixote</figcaption>
+                    <li>
+                        <h3> A farewell to arms</h3>
+                        <iframe src="https://www.youtube.com/embed/KT1RIeg5WL0" name="ifr" width="500"
+                            height="500"></iframe>
+                    </li>
 
-                        <picture>
-                            <source srcset="resurse/img/don-quixote800x800.jpg" media="(max-width:800px)" />
-                            <source srcset="resurse/img/don-quixote1000x1000.jpg" media="(max-width:1000px)" />
-                            <img src="resurse/img/don-quixote1200x1200.jpg" alt="quixote" width="400" height="400" />
-                        </picture>
-                    </figure>
-                </li>
-            </ol>
-        </section>
+                </ul>
+            </section>
 
+            <section id="Electronice">
+                <h2> Carti electronice</h2>
+                <a href="resurse/download/alice-in-wonderland.pdf" download="alice-in-wonderland.pdf"> Alice in
+                    wonderland -
+                    Capitolul 1 </a>
+            </section>
 
+            <section id="Recenzii">
+                <h2> Ultimele recenzii </h2>
+                <details>
+                    <summary>
+                        <i>Nu exista tara pentru batrani</i>, Cormac McCarthy
+                    </summary>
+                    <i>Allen Ridley:</i> Quisque egestas quam sed blandit aliquam. Fusce quis nisi feugiat ligula
+                    interdum
+                    convallis quis at
+                    lectus. Etiam felis quam, efficitur ut imperdiet convallis, lobortis quis velit. Quisque at mi diam.
+                    Nunc sagittis nulla sodales ultricies congue. Nulla euismod egestas arcu eu congue. Mauris rhoncus
+                    ante nibh, a elementum nulla scelerisque ut. Aenean quis rutrum justo. Pellentesque velit ex,
+                    consequat pharetra nibh vitae, viverra porttitor elit. Vivamus massa enim, faucibus commodo eleifend
+                    nec, egestas a nunc. Donec facilisis nulla enim, vel tempus turpis condimentum vel. Orci varius
+                    natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut non nunc et ipsum
+                    pellentesque interdum. Cras arcu ante, blandit eget vestibulum eget, auctor sed nunc. Praesent metus
+                    urna, condimentum id neque vitae, consectetur sodales felis. Fusce a scelerisque ex.
 
-        <!-- Quote section-->
-        <section id="Citat">
-            <h2> Citatul zilei</h2>
-            <blockquote>
-                <q>Don't judge each day by the harvest you reap, but by the seeds you plant.</q>
-            </blockquote>
-            <p> &mdash; Robert Louis Stevenson</p>
-        </section>
+                </details>
 
-        <section id="Ecranizari">
-            <h2> Cele mai bune ecranizări</h2>
-            <ul>
-                <li>
-                    <h3> Alice in Wonderland</h3>
-                    <iframe src="https://www.youtube.com/embed/zeIXfdogJbA" name="ifr" width="500"
-                        height="500"></iframe>
-                </li>
-
-                <li>
-                    <h3> A farewell to arms</h3>
-                    <iframe src="https://www.youtube.com/embed/KT1RIeg5WL0" name="ifr" width="500"
-                        height="500"></iframe>
-                </li>
-
-            </ul>
-        </section>
-
-        <section id="Electronice">
-            <h2> Carti electronice</h2>
-            <a href="resurse/download/alice-in-wonderland.pdf" download="alice-in-wonderland.pdf"> Alice in wonderland -
-                Capitolul 1 </a>
-        </section>
-
-        <section id="Recenzii">
-            <h2> Ultimele recenzii </h2>
-            <details>
-                <summary>
-                    <i>Nu exista tara pentru batrani</i>, Cormac McCarthy
-                </summary>
-                <i>Allen Ridley:</i> Quisque egestas quam sed blandit aliquam. Fusce quis nisi feugiat ligula interdum
-                convallis quis at
-                lectus. Etiam felis quam, efficitur ut imperdiet convallis, lobortis quis velit. Quisque at mi diam.
-                Nunc sagittis nulla sodales ultricies congue. Nulla euismod egestas arcu eu congue. Mauris rhoncus
-                ante nibh, a elementum nulla scelerisque ut. Aenean quis rutrum justo. Pellentesque velit ex,
-                consequat pharetra nibh vitae, viverra porttitor elit. Vivamus massa enim, faucibus commodo eleifend
-                nec, egestas a nunc. Donec facilisis nulla enim, vel tempus turpis condimentum vel. Orci varius
-                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut non nunc et ipsum
-                pellentesque interdum. Cras arcu ante, blandit eget vestibulum eget, auctor sed nunc. Praesent metus
-                urna, condimentum id neque vitae, consectetur sodales felis. Fusce a scelerisque ex.
-
-            </details>
-
-            <details>
-                <summary>
-                    <i>Batranul si marea</i>, Ernest Hemingway
-                </summary>
-                <i>John Walter:</i> Sed id ante justo. Sed quis placerat ex, quis egestas velit. Maecenas non
-                sollicitudin dolor, vel lobortis sem. In rhoncus, eros a pellentesque dignissim, purus arcu mattis
-                turpis, quis molestie purus massa in diam. Integer at faucibus erat, sit amet tristique nisi. Sed
-                sodales commodo eros, id elementum sapien facilisis in. Duis commodo tellus a pretium molestie. In hac
-                habitasse platea dictumst. Ut facilisis leo at aliquam dictum. Curabitur dolor dolor, ullamcorper nec
-                augue eu, gravida volutpat elit. In aliquam pulvinar eros, vel finibus arcu euismod sit amet.
+                <details>
+                    <summary>
+                        <i>Batranul si marea</i>, Ernest Hemingway
+                    </summary>
+                    <i>John Walter:</i> Sed id ante justo. Sed quis placerat ex, quis egestas velit. Maecenas non
+                    sollicitudin dolor, vel lobortis sem. In rhoncus, eros a pellentesque dignissim, purus arcu mattis
+                    turpis, quis molestie purus massa in diam. Integer at faucibus erat, sit amet tristique nisi. Sed
+                    sodales commodo eros, id elementum sapien facilisis in. Duis commodo tellus a pretium molestie. In
+                    hac
+                    habitasse platea dictumst. Ut facilisis leo at aliquam dictum. Curabitur dolor dolor, ullamcorper
+                    nec
+                    augue eu, gravida volutpat elit. In aliquam pulvinar eros, vel finibus arcu euismod sit amet.
 
 
-            </details>
+                </details>
 
 
 
-        </section>
+            </section>
 
+        </div>
     </main>
 
     <footer>
