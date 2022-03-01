@@ -1,12 +1,12 @@
 body{
-    --dark:#131C1A; /* for text */
-    --light-blue:#B4D9D2; /* background color*/
-    --soft-blue:#90D1C5;
-    --medium-blue:#71A39A;
-    --dark-blue:#15574B; /* for border */
+    --black:#000000; /* for text */
+    --lemon-yellow:#FFFFB3; /* background color*/
+    --earth-yellow:#DCAB6B;
+    --sepia:#774E24;
+    --silver:#84828F; /* for border */
 
-    background-color: var(--light-blue);
-    color: var(--color);
+    background-color: var(--lemon-yellow);
+    color: var(-black);
 }
 
 #grid{
@@ -16,8 +16,8 @@ body{
                          "utilizatori utilizator utilizator server"
                          "calendar calendar tabel tabel"
                          "anunturi anunturi tabel tabel"
-                         "lista lista lista lista"
-                         "citat citat electronice recenzii"
+                         "lista lista recenzii recenzii"
+                         "citat citat electronice electronice"
                          "ecranizari ecranizari ecranizari ecranizari"
                         
 }
@@ -69,10 +69,10 @@ body{
 }
 
 section h2{
-    background-color: var(--medium-blue);
-    border: 1px solid  darkblue;
+    background-color: var(--earth-yellow);
+    border: 1px solid  var(--sepia);
 }
 section{
     padding: 2px;
-    border: 1px solid;
+    border: 1px solid var(--sepia);
 }
