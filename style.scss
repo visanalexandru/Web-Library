@@ -1,0 +1,285 @@
+$inaltime_meniu:2rem;
+$timp_tranzitie:0.2s;
+
+body{
+    // Theme
+    --black:#000000; /* for text */
+    --lemon-yellow:#FFFFB3; /* background color*/
+    --earth-yellow:#DCAB6B;
+    --sepia:#774E24;
+    --silver:#84828F; /* for border */ 
+    
+    
+    background-color: var(--lemon-yellow);
+    color: var(--black);
+
+
+}
+
+#grid{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-areas: "salut salut salut salut"
+                         "utilizatori utilizator utilizator server"
+                         "calendar calendar tabel tabel"
+                         "anunturi anunturi tabel tabel"
+                         "lista lista recenzii recenzii"
+                         "citat citat electronice electronice"
+                         "ecranizari ecranizari ecranizari ecranizari"
+                        
+}
+
+#Salut{
+  grid-area: salut;
+}
+
+#Utilizatori{
+  grid-area: utilizatori;
+}
+#Utilizator{
+  grid-area: utilizator;
+}
+#Server{
+  grid-area: server;
+}
+#Tabel{
+  grid-area: tabel;
+}
+
+#Calendar{
+  grid-area: calendar;
+}
+
+#Anunturi{
+  grid-area: anunturi;
+}
+
+#Lista{
+  grid-area:lista;
+  img{
+    max-width: 100%;
+    height: 100%;
+    align-self: center;
+  }
+}
+
+#Citat{
+  grid-area:citat
+}
+
+#Electronice{
+  grid-area:electronice
+}
+
+#Recenzii{
+  grid-area: recenzii;
+}
+
+#Ecranizari{
+  grid-area: ecranizari;
+  iframe{
+    max-width: 100%;
+    width: 400px;
+    height: 400px;
+  }
+}
+
+section{
+  padding: 2px;
+  border: 1px solid var(--sepia);
+  h2{
+    background-color: var(--earth-yellow);
+    border: 1px solid  var(--sepia);
+  }
+}
+
+nav{
+
+  height: $inaltime_meniu;
+  width: 100%;
+  background-color: var(--silver);
+  top: 0;
+  left:0;
+  z-index: 2;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+
+  ul{
+    margin: 0;
+    padding: 0;
+  }
+ }
+
+
+@media screen and (min-width:900px){
+  body{
+    font-size: 20px;
+  }
+  ul.meniu{
+    
+    font-size: 1.2rem;
+    transition: all $timp_tranzitie linear;
+
+    .home{
+      :nth-child(1){
+        display: none;
+      }
+    }
+
+    li{
+      box-sizing: border-box;
+      width: 200px;
+      text-align: center;
+      list-style-type: none;
+      float: left;
+      height: $inaltime_meniu;
+      transition: all $timp_tranzitie linear;
+
+
+      a,div{
+        display: block;
+        position: relative;
+        cursor: pointer;
+        background-color: var(--silver);
+        width: 100%;
+        height: 100%;
+        transition:all $timp_tranzitie linear;
+        box-sizing: border-box;
+        outline:1px solid var(--black);
+        text-decoration: none;
+        color: var(--black);
+        font-weight: bold;
+        padding: 5px;
+      }
+    }
+    li:hover{
+      >a,>div{
+        background-color: var(--earth-yellow);
+      }
+      ul{display:block;}
+    }
+
+    >li>a{
+        text-shadow: 0px -30px 2px var(--black);
+    }
+
+    >li:hover{
+      >a{
+        text-shadow: 0px 0px 0px var(--black);
+      }
+      ul{
+        animation:meniu;
+        animation-duration: $timp_tranzitie;
+        animation-timing-function: linear;
+      }
+    }
+
+
+    li ul a{
+      text-decoration: underline solid transparent;
+    }
+
+    li ul li:hover a{
+      text-decoration: underline solid var(--black);
+    }
+
+
+
+    ul{
+      display: none;
+    }
+
+  }
+}
+
+@media screen and (min-width:500px) and (max-width:900px){
+  body{
+    font-size: 20px;
+  }
+  ul.meniu{
+    font-size: 0.9rem;
+    transition: all $timp_tranzitie linear;
+
+    .home{
+      :nth-child(2){
+        display: none;
+      } 
+    }
+
+    li{
+      box-sizing: border-box;
+      width: 180px;
+      text-align: center;
+      list-style-type: none;
+      float: left;
+      height: $inaltime_meniu;
+      transition: all $timp_tranzitie linear;
+
+
+      a,div{
+        display: block;
+        position: relative;
+        cursor: pointer;
+        background-color: var(--silver);
+        width: 100%;
+        height: 100%;
+        transition:all $timp_tranzitie linear;
+        box-sizing: border-box;
+        outline:1px solid var(--black);
+        text-decoration: none;
+        color: var(--black);
+        font-weight: bold;
+        padding: 5px;
+      }
+    }
+
+    li:hover{
+      >a,>div{
+        background-color: var(--earth-yellow);
+      }
+      ul{display:block;}
+    }
+
+    >li>a{
+        text-shadow: 0px -30px 2px var(--black);
+    }
+
+    >li:hover{
+      >a{
+        text-shadow: 0px 0px 0px var(--black);
+      }
+      ul{
+        animation:meniu;
+        animation-duration: $timp_tranzitie;
+        animation-timing-function: linear;
+      }
+    }
+
+
+    li ul a{
+      text-decoration: underline solid transparent;
+    }
+
+    li ul li:hover a{
+      text-decoration: underline solid var(--black);
+    }
+
+
+
+    ul{
+      display: none;
+    }
+
+  }
+}
+@keyframes meniu{
+  0%{
+    transform:scaleY(0); 
+  }
+
+  100%{
+    transform:scaleY(1); 
+  }
+
+}
