@@ -296,6 +296,7 @@ nav ul {
     font-weight: bold;
     padding: 5px;
     letter-spacing: 0.06rem;
+    text-shadow: 0px -30px 0px transparent;
   }
   #menu-toggle:checked ~ .meniu li:hover > a, #menu-toggle:checked ~ .meniu li:hover > div {
     background-color: var(--earth-yellow);
