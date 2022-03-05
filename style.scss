@@ -109,17 +109,16 @@ nav{
     margin: 0;
     padding: 0;
   }
- }
+}
 
 
-@media screen and (min-width:900px){
+@media screen and (min-width:1200px){
   body{
     font-size: 20px;
   }
   ul.meniu{
     
     font-size: 1.2rem;
-    transition: all $timp_tranzitie linear;
 
     .home{
       :nth-child(1){
@@ -134,7 +133,6 @@ nav{
       list-style-type: none;
       float: left;
       height: $inaltime_meniu;
-      transition: all $timp_tranzitie linear;
 
 
       a,div{
@@ -191,15 +189,20 @@ nav{
     }
 
   }
+  #hamburger{
+    display: none;
+  }
+  #menu-toggle{
+    display: none;
+  }
 }
 
-@media screen and (min-width:500px) and (max-width:900px){
+@media screen and (min-width:800px) and (max-width:1200px){
   body{
     font-size: 20px;
   }
   ul.meniu{
     font-size: 0.9rem;
-    transition: all $timp_tranzitie linear;
 
     .home{
       :nth-child(2){
@@ -214,7 +217,6 @@ nav{
       list-style-type: none;
       float: left;
       height: $inaltime_meniu;
-      transition: all $timp_tranzitie linear;
 
 
       a,div{
@@ -271,8 +273,106 @@ nav{
       display: none;
     }
 
+    
+
+  }
+  #hamburger{
+      display: none;
+  }
+  #menu-toggle{
+    display: none;
   }
 }
+
+
+@media screen and (max-width:800px){
+  body{
+    font-size: 20px;
+  }
+  
+  #hamburger{   
+    width: 100%;
+    display: block;
+    height: $inaltime_meniu;
+
+    span{
+      display:inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-left: 30px;
+    }
+  }
+
+  #menu-toggle{
+    display: none;
+  }
+
+  .meniu {
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .meniu{
+    display: block;
+    font-size: 0.9rem;
+
+    .home{
+      :nth-child(2){
+        display: none;
+      } 
+    }
+
+    li{
+      box-sizing: border-box;
+      width: 100%;
+      text-align: center;
+      list-style-type: none;
+      float: left;
+
+      >a,>div{
+        animation:spacing;
+        animation-duration: $timp_tranzitie;
+        animation-timing-function: linear;
+      }
+
+      a,div{
+        height: $inaltime_meniu;
+        display: block;
+        position: relative;
+        cursor: pointer;
+        background-color: var(--silver);
+        transition:background-color $timp_tranzitie linear;
+        box-sizing: border-box;
+        outline:1px solid var(--black);
+        text-decoration: none;
+        color: var(--black);
+        font-weight: bold;
+        padding: 5px;
+        letter-spacing: 0.06rem;
+      }
+    }
+
+    li:hover{
+      >a,>div{
+        background-color: var(--earth-yellow);
+      }
+      ul{display:block;}
+    }
+
+    >li:hover{
+      ul{
+        animation:meniu; 
+        animation-duration: $timp_tranzitie;
+        animation-timing-function: linear;
+      }
+    }
+
+    ul{
+      display: none;
+    }
+
+  } 
+}
+
 @keyframes meniu{
   0%{
     transform:scaleY(0); 
@@ -282,4 +382,13 @@ nav{
     transform:scaleY(1); 
   }
 
+}
+
+@keyframes spacing{
+  0%{
+    letter-spacing: -0.4rem;
+  }
+  100%{
+    letter-spacing: 0.06rem;
+  }
 }

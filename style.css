@@ -100,14 +100,13 @@ nav ul {
   padding: 0;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1200px) {
   body {
     font-size: 20px;
   }
 
   ul.meniu {
     font-size: 1.2rem;
-    transition: all 0.2s linear;
   }
   ul.meniu .home :nth-child(1) {
     display: none;
@@ -119,7 +118,6 @@ nav ul {
     list-style-type: none;
     float: left;
     height: 2rem;
-    transition: all 0.2s linear;
   }
   ul.meniu li a, ul.meniu li div {
     display: block;
@@ -162,15 +160,22 @@ nav ul {
   ul.meniu ul {
     display: none;
   }
+
+  #hamburger {
+    display: none;
+  }
+
+  #menu-toggle {
+    display: none;
+  }
 }
-@media screen and (min-width: 500px) and (max-width: 900px) {
+@media screen and (min-width: 800px) and (max-width: 1200px) {
   body {
     font-size: 20px;
   }
 
   ul.meniu {
     font-size: 0.9rem;
-    transition: all 0.2s linear;
   }
   ul.meniu .home :nth-child(2) {
     display: none;
@@ -182,7 +187,6 @@ nav ul {
     list-style-type: none;
     float: left;
     height: 2rem;
-    transition: all 0.2s linear;
   }
   ul.meniu li a, ul.meniu li div {
     display: block;
@@ -225,6 +229,88 @@ nav ul {
   ul.meniu ul {
     display: none;
   }
+
+  #hamburger {
+    display: none;
+  }
+
+  #menu-toggle {
+    display: none;
+  }
+}
+@media screen and (max-width: 800px) {
+  body {
+    font-size: 20px;
+  }
+
+  #hamburger {
+    width: 100%;
+    display: block;
+    height: 2rem;
+  }
+  #hamburger span {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 30px;
+  }
+
+  #menu-toggle {
+    display: none;
+  }
+
+  .meniu {
+    display: none;
+  }
+
+  #menu-toggle:checked ~ .meniu {
+    display: block;
+    font-size: 0.9rem;
+  }
+  #menu-toggle:checked ~ .meniu .home :nth-child(2) {
+    display: none;
+  }
+  #menu-toggle:checked ~ .meniu li {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    list-style-type: none;
+    float: left;
+  }
+  #menu-toggle:checked ~ .meniu li > a, #menu-toggle:checked ~ .meniu li > div {
+    animation: spacing;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+  }
+  #menu-toggle:checked ~ .meniu li a, #menu-toggle:checked ~ .meniu li div {
+    height: 2rem;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    background-color: var(--silver);
+    transition: background-color 0.2s linear;
+    box-sizing: border-box;
+    outline: 1px solid var(--black);
+    text-decoration: none;
+    color: var(--black);
+    font-weight: bold;
+    padding: 5px;
+    letter-spacing: 0.06rem;
+  }
+  #menu-toggle:checked ~ .meniu li:hover > a, #menu-toggle:checked ~ .meniu li:hover > div {
+    background-color: var(--earth-yellow);
+  }
+  #menu-toggle:checked ~ .meniu li:hover ul {
+    display: block;
+  }
+  #menu-toggle:checked ~ .meniu > li:hover ul {
+    animation: meniu;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+  }
+  #menu-toggle:checked ~ .meniu ul {
+    display: none;
+  }
 }
 @keyframes meniu {
   0% {
@@ -232,5 +318,13 @@ nav ul {
   }
   100% {
     transform: scaleY(1);
+  }
+}
+@keyframes spacing {
+  0% {
+    letter-spacing: -0.4rem;
+  }
+  100% {
+    letter-spacing: 0.06rem;
   }
 }
