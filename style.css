@@ -34,7 +34,7 @@ body {
   display: block;
   margin-right: 20px;
   background-color: var(--silver);
-  transition: background-color 0.2s linear;
+  transition: background-color 0.3s linear;
   width: 100px;
   text-decoration: none;
   color: var(--black);
@@ -44,6 +44,45 @@ body {
 }
 .taburi-iframe a:hover {
   background-color: var(--earth-yellow);
+}
+
+#link-top {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  display: block;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-left: 5px solid var(--silver);
+  border-right: 5px solid var(--silver);
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s linear;
+}
+#link-top a {
+  opacity: 0.5;
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid var(--silver);
+  margin-top: 15px;
+  transition: all 0.3s linear;
+}
+
+#link-top:hover {
+  border-color: var(--silver);
+}
+#link-top:hover a {
+  opacity: 1;
+  margin-top: 0px;
+  border-bottom: 15px solid orange;
 }
 
 #grid {
@@ -156,7 +195,7 @@ nav ul {
     background-color: var(--silver);
     width: 100%;
     height: 100%;
-    transition: all 0.2s linear;
+    transition: all 0.3s linear;
     box-sizing: border-box;
     outline: 1px solid var(--black);
     text-decoration: none;
@@ -178,7 +217,7 @@ nav ul {
   }
   ul.meniu > li:hover ul {
     animation: meniu;
-    animation-duration: 0.2s;
+    animation-duration: 0.3s;
     animation-timing-function: linear;
   }
   ul.meniu li ul a {
@@ -225,7 +264,7 @@ nav ul {
     background-color: var(--silver);
     width: 100%;
     height: 100%;
-    transition: all 0.2s linear;
+    transition: all 0.3s linear;
     box-sizing: border-box;
     outline: 1px solid var(--black);
     text-decoration: none;
@@ -247,7 +286,7 @@ nav ul {
   }
   ul.meniu > li:hover ul {
     animation: meniu;
-    animation-duration: 0.2s;
+    animation-duration: 0.3s;
     animation-timing-function: linear;
   }
   ul.meniu li ul a {
@@ -309,7 +348,7 @@ nav ul {
   }
   #menu-toggle:checked ~ .meniu li > a, #menu-toggle:checked ~ .meniu li > div {
     animation: spacing;
-    animation-duration: 0.2s;
+    animation-duration: 0.3s;
     animation-timing-function: linear;
   }
   #menu-toggle:checked ~ .meniu li a, #menu-toggle:checked ~ .meniu li div {
@@ -318,7 +357,7 @@ nav ul {
     position: relative;
     cursor: pointer;
     background-color: var(--silver);
-    transition: background-color 0.2s linear;
+    transition: background-color 0.3s linear;
     box-sizing: border-box;
     outline: 1px solid var(--black);
     text-decoration: none;
@@ -336,7 +375,7 @@ nav ul {
   }
   #menu-toggle:checked ~ .meniu > li:hover ul {
     animation: meniu;
-    animation-duration: 0.2s;
+    animation-duration: 0.3s;
     animation-timing-function: linear;
   }
   #menu-toggle:checked ~ .meniu ul {

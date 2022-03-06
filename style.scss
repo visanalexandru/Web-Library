@@ -1,5 +1,5 @@
 $inaltime_meniu:2rem;
-$timp_tranzitie:0.2s;
+$timp_tranzitie:0.3s;
 
 body{
     // Theme
@@ -53,6 +53,46 @@ body{
 
 }
 
+#link-top{
+  position:fixed;
+  bottom:5%;
+  right:5%;
+
+  display: block;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-left: 5px solid var(--silver);
+  border-right: 5px solid var(--silver);
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-color: rgba(0,0,0,0.5); // 50% opacity
+  transition: all $timp_tranzitie linear;
+
+  a{
+    opacity: 0.5;
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid var(--silver);
+    margin-top: 15px;
+    transition: all $timp_tranzitie linear;
+  }
+  
+}
+#link-top:hover{
+    border-color: var(--silver); // 100% opacity
+    a{
+      opacity: 1;
+      margin-top: 0px;
+      border-bottom: 15px solid orange;
+    }
+  }
 #grid{
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
