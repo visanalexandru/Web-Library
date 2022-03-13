@@ -9,6 +9,10 @@ app.get(["/index", "/home"], function (req, res) {
 }
 )
 
+app.get("/*.ejs",function(req,res){
+    res.status(403).render("pagini/403.ejs");
+})
+
 app.get("/*", function (req, res) {
     res.render("pagini" + req.url, function (err, rezRender) {
         if (err) {
