@@ -6,6 +6,7 @@ body {
   --earth-yellow:#DCAB6B;
   --sepia:#774E24;
   --silver:#84828F;
+  --light-yellow:#fcc87e;
   /* for border */
   background-color: var(--lemon-yellow);
   color: var(--black);
@@ -150,6 +151,10 @@ section {
 }
 section h2 {
   background-color: var(--earth-yellow);
+  border: 1px solid var(--sepia);
+}
+section h3{
+  background-color: var(--light-yellow);
   border: 1px solid var(--sepia);
 }
 
