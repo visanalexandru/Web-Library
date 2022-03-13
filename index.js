@@ -5,7 +5,7 @@ app.set("view engine", "ejs");
 
 app.use("/resurse", express.static(__dirname + "/resurse"))
 app.get(["/index", "/home"], function (req, res) {
-    res.render("pagini/index.ejs");
+    res.render("pagini/index.ejs",{ip:req.ip});
 }
 )
 
