@@ -89,7 +89,7 @@ body {
 #grid {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  grid-template-areas: "salut salut salut salut" "utilizatori utilizator utilizator server" "calendar calendar tabel tabel" "anunturi anunturi tabel tabel" "lista lista recenzii recenzii" "citat citat electronice electronice" "ecranizari ecranizari ecranizari ecranizari";
+  grid-template-areas: "salut salut salut salut" "utilizatori utilizator utilizator server" "calendar calendar tabel tabel" "anunturi anunturi tabel tabel" "lista lista recenzii recenzii" "citat citat electronice electronice" "ecranizari ecranizari ecranizari ecranizari" "videoclip videoclip videoclip videoclip";
 }
 
 #Salut {
@@ -143,6 +143,20 @@ body {
 
 #Ecranizari {
   grid-area: ecranizari;
+}
+
+#Videoclip {
+  grid-area: videoclip;
+}
+#Videoclip div {
+  text-align: center;
+}
+#Videoclip video::cue {
+  opacity: 1;
+  background: var(--silver);
+  color: white;
+  opacity: 0.7;
+  background-clip: text;
 }
 
 section {
