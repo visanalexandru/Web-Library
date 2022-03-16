@@ -53,6 +53,55 @@ body{
 
 }
 
+#DivOrar{
+  flex-direction: column;
+  align-items: center;
+
+  #Orar{
+    border: 3px solid var(--black);
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+
+      thead th{
+        border: 3px solid var(--silver);
+        border-bottom: 6px solid var(--silver);
+      }
+      
+      tr{
+        box-shadow: none;
+        transition:all 0.5s linear;
+      }
+      tr:hover{
+        box-shadow: 0px 0px 8px  green;
+      }
+
+      tbody td{
+        border-top: 1px solid var(--black);
+        border-bottom: 1px solid var(--black);
+      }
+
+      tbody td:nth-child(odd){
+        border-left: 3px solid var(--black);
+      }
+      tbody td:nth-child(even){
+        border-left: 3px solid var(--silver);
+      }
+
+
+      tfoot td{
+        text-align: center;
+        border: 3px solid var(--silver);
+        border-top: 6px solid var(--silver);
+      }
+  }
+  
+  caption{
+    caption-side: bottom;
+  }
+}
+
+
 #link-top{
   position:fixed;
   bottom:5%;
@@ -373,6 +422,9 @@ nav{
   #menu-toggle{
     display: none;
   }
+  #DivOrar{
+     overflow-x:scroll;
+  }
 }
 
 
@@ -463,6 +515,10 @@ nav{
     }
 
   } 
+
+  #DivOrar{
+     overflow-x:scroll;
+  }
 }
 
 @keyframes meniu{

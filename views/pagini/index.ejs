@@ -4,6 +4,7 @@
 <head>
     <%- include("../fragmente/head.ejs"); %>
     <title> Librarie Web </title>
+    <link href="resurse/css/galerie.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -60,6 +61,21 @@
                     </p>
                 </section>
 
+                <section>
+                    <div id="Galerie">
+                        <% for(let imag of locals.imagini){ %>
+                            <figure>
+                                <picture>
+                                    <source srcset="<%- imag.mic %>" media="(max-width:800px)">
+                                    <source srcset="<%- imag.mediu%>" media="(max-width:1200px)">
+                                    <img src="<%- imag.mare %>" alt="text alternativ">
+                                </picture>
+                            </figure>
+
+                        <% } %>
+
+                    </div>
+                </section>
 
 
             </section>
@@ -142,7 +158,71 @@
 
             <section id="Tabel">
                 <h2> Tabel</h2>
-                <p> Placeholder pentru tabel</p>
+                <div id="DivOrar">
+                    <table id="Orar">
+                        <thead>
+                            <th> Zi</th>
+                            <th> Dimineata</th>
+                            <th> Dupa-Amiaza</th>
+                            <th> Seara</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> Luni</td>
+                                <td> 9:00-10:00</td>
+                                <td> 12:30-14:00</td>
+                                <td> 18:00-20:00</td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Marti</td>
+                                <td> 7:00-9:00</td>
+                                <td> 12:00-14:00</td>
+                                <td> 15:00-20:00</td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Miercuri</td>
+                                <td> 7:00-9:00</td>
+                                <td> 12:00-14:00</td>
+                                <td> 15:00-20:00</td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Joi</td>
+                                <td> 9:00-10:00</td>
+                                <td> 12:30-14:00</td>
+                                <td> 18:00-20:00</td>
+                            </tr>
+                            
+                            <tr>
+                                <td> Vineri</td>
+                                <td> 7:00-8:00</td>
+                                <td> 10:30-11:00</td>
+                                <td> 18:00-20:00</td>
+                            </tr>
+
+                            <tr>
+                                <td> Sambata</td>
+                                <td> 10:00-15:00</td>
+                                <td colspan="2"> inchis</td>
+                            </tr>
+
+                            <tr>
+                                <td> Duminica</td>
+                                <td> 10:00-15:00</td>
+                                <td colspan="2"> inchis</td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr> 
+                                <td colspan="5"> Tabel</td>
+                            </tr>
+                        </tfoot>
+                    <caption> Orar</caption>
+                    </table>
+                </div>
             </section>
 
             <section id="Anunturi">
