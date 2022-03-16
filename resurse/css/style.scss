@@ -1,6 +1,15 @@
 $inaltime_meniu:2rem;
 $timp_tranzitie:0.3s;
 
+header{
+  #Banner{
+    display: none;
+  }
+  #Watermark{
+    display: none;
+  }
+}
+
 body{
     // Theme
     --black:#000000; /* for text */
@@ -518,6 +527,61 @@ nav{
 
   #DivOrar{
      overflow-x:scroll;
+  }
+}
+
+@media print{
+  header{
+    text-align: center;
+    nav{
+      position: inherit;
+      page-break-after: always;
+      
+      #menu-toggle,label{
+       display: none;
+      }
+      li li{
+        display: none;
+      }
+    }
+
+    #Banner{
+      position: absolute;
+      display: block;
+      bottom: 0px;
+      left: 15%;
+      width: 70%;
+      border:4px inset var(--black);
+    }
+    #Watermark{
+      opacity: 0.4;
+      display: block;
+      position: fixed;
+      bottom: 0%;
+      right: 0%;
+      width: 4cm;
+      height: 1cm;
+      border: 3px solid var(--black);
+      border-radius: 10px;
+
+      p{
+        margin: 0;
+      }
+    }
+  }
+  
+  #link-top{
+    display: none;
+  }
+  video,img,.iframe-menu{
+    display: none;
+  }
+  a{
+    text-decoration: none;
+    color: var(--black);
+  }
+  footer{
+    page-break-before: always;
   }
 }
 
