@@ -74,7 +74,7 @@ body{
 
       thead th{
         border: 3px solid var(--silver);
-        border-bottom: 6px solid var(--silver);
+        border-bottom: 9px solid var(--silver);
       }
       
       tr{
@@ -101,7 +101,7 @@ body{
       tfoot td{
         text-align: center;
         border: 3px solid var(--silver);
-        border-top: 6px solid var(--silver);
+        border-top: 9px solid var(--silver);
       }
   }
   
@@ -221,11 +221,11 @@ body{
     text-align: center;
   }
   video::cue{
-    opacity: 1;
-    background: var(--silver);
-    color: white;
-    opacity: 0.7;
+    background-color:red;
+    color: var(--black);
+    opacity: 0.6;
     background-clip: text;
+    -webkit-background-clip: text;
   }
 }
 
@@ -531,6 +531,9 @@ nav{
 }
 
 @media print{
+  #Orar td{
+    border:3px solid var(--black);
+  }
   header{
     text-align: center;
     nav{
@@ -563,9 +566,21 @@ nav{
       height: 1cm;
       border: 3px solid var(--black);
       border-radius: 10px;
+      font-weight: bold;
+      text-align: center;
 
       p{
         margin: 0;
+      }
+
+      @page:left{
+        margin-left:3cm;    
+        margin-right:1cm;
+      }
+
+      @page:right{
+        margin-right:3cm;    
+        margin-left:1cm;
       }
     }
   }
