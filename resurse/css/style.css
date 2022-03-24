@@ -478,6 +478,10 @@ nav ul {
     border: 3px solid var(--black);
   }
 
+  #hrdiv {
+    display: none;
+  }
+
   header {
     text-align: center;
   }
@@ -512,22 +516,19 @@ nav ul {
     font-weight: bold;
     text-align: center;
   }
-  header #Watermark p {
+
+  p {
     margin: 0;
   }
+
   @page :left {
-    header #Watermark {
-      margin-left: 3cm;
-      margin-right: 1cm;
-    }
+    margin-left: 3cm;
+    margin-right: 1cm;
   }
   @page :right {
-    header #Watermark {
-      margin-right: 3cm;
-      margin-left: 1cm;
-    }
+    margin-right: 3cm;
+    margin-left: 1cm;
   }
-
   #link-top {
     display: none;
   }

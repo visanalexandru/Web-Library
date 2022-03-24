@@ -552,6 +552,9 @@ nav{
   #Orar td{
     border:3px solid var(--black);
   }
+  #hrdiv{
+    display: none;
+  }
   header{
     text-align: center;
     nav{
@@ -587,22 +590,24 @@ nav{
       font-weight: bold;
       text-align: center;
 
-      p{
-        margin: 0;
-      }
-
-      @page:left{
-        margin-left:3cm;    
-        margin-right:1cm;
-      }
-
-      @page:right{
-        margin-right:3cm;    
-        margin-left:1cm;
-      }
+      
+      
     }
+    
+    
   }
-  
+  p{
+        margin: 0;
+  }
+  @page:left{
+      margin-left:3cm;    
+      margin-right:1cm;
+    }
+
+  @page:right{
+    margin-right:3cm;    
+    margin-left:1cm;
+  }
   #link-top{
     display: none;
   }
