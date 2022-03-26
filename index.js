@@ -12,14 +12,14 @@ app.get(["/","/index", "/home"], function (req, res) {
 )
 
 app.get("/*.ejs",function(req,res){
-    res.status(403).render("pagini/403.ejs");
+    randeazaEroare(res,403)
 })
 
 app.get("/*", function (req, res) {
     res.render("pagini" + req.url, function (err, rezRender) {
         if (err) {
             if (err.message.includes("Failed to lookup view")) {
-                res.status(404).render("pagini/404");
+                randeazaEroare(res,404)
             }
             else {
                 res.render("pagini/eroare_generala");
@@ -59,6 +59,24 @@ function creeazaImagini(){
 
 }
 
-
 creeazaImagini();
+
+function creeazaErori(){
+    var buf=fs.readFileSync(__dirname+"/resurse/json/erori.json").toString("utf8");
+    obErori=JSON.parse(buf);//global
+}
+
+creeazaErori();
+
+function randeazaEroare(res,identificator,titlu,text,imagine){
+    var eroare=obErori.erori.find(function (elem){return elem.identificator==identificator})
+    titlu= titlu || (eroare  && eroare.titlu) || "Titlu custom eroare"
+    text= text|| (eroare  && eroare.text) || "Titlu custom eroare"
+    imagine= imagine|| (eroare  && (obErori.cale_baza+"/"+eroare.imagine)) || "resurse/img/interzis.png"
+    if(eroare && eroare.status)
+        res.status(eroare.identificator).render("pagini/eroare_generala", {titlu:titlu,text:text,imagine:imagine})
+    else
+        res.render("pagini/eroare_generala", {titlu:titlu,text:text,imagine:imagine})
+}
+
 app.listen(8080);
