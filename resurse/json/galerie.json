@@ -2,32 +2,89 @@
 	"cale_galerie":"resurse/img/galerie",
 	"imagini": [
 		{
-			"fisier":"briose-frisca.png",
-			"descriere":"Brioșe"
+			"anotimp":"vara",
+			"titlu":"Prajitura",
+			"cale_fisier":"briose-frisca.png",
+			"text_descriere":"Brioșe"
 		},
 		{
-			"fisier":"clatite.png",
-			"descriere":"Clătite cu dulceață"
+			"anotimp":"iarna",
+			"titlu":"Prajitura",
+			"cale_fisier":"clatite.png",
+			"text_descriere":"Clătite cu dulceață"
 		},
 		{
-			"fisier":"gogosi.png",
-			"descriere":"Gogoși glazurate"
+			"anotimp":"toamna",
+			"titlu":"Prajitura",
+			"cale_fisier":"gogosi.png",
+			"text_descriere":"Gogoși glazurate"
 		},
 		{
-			"fisier":"tort-scortisoara.png",
-			"descriere":"Tort cu scorțisoară"
+			"anotimp":"primavara",
+			"titlu":"Prajitura",
+			"cale_fisier":"tort-scortisoara.png",
+			"text_descriere":"Tort cu scorțisoară"
 		},
 		{
-			"fisier":"prajitura-ciocolata.png",
-			"descriere":"Prăjitură cu ciocolată"
+			"anotimp":"vara",
+			"titlu":"Prajitura",
+			"cale_fisier":"prajitura-ciocolata.png",
+			"text_descriere":"Prăjitură cu ciocolată"
 		},
 		{
-			"fisier":"tarta-afine.png",
-			"descriere":"Tartă cu afine"
+			"anotimp":"toamna",
+			"titlu":"Prajitura",
+			"cale_fisier":"tarta-afine.png",
+			"text_descriere":"Tartă cu afine"
 		},
 		{
-			"fisier":"tort-trandafiri.png",
-			"descriere":"Tort special"
+			"anotimp":"iarna",
+			"titlu":"Prajitura",
+			"cale_fisier":"tort-trandafiri.png",
+			"text_descriere":"Tort special"
+		},
+		{
+			"anotimp":"vara",
+			"titlu":"Carte1",
+			"cale_fisier":"big_book.jpg",
+			"text_descriere":"Carte mare"
+		},
+		{
+			"anotimp":"toamna",
+			"titlu":"Carte2",
+			"cale_fisier":"book_dog.jpg",
+			"text_descriere":"Caine"
+		},
+		{
+			"anotimp":"iarna",
+			"titlu":"Carte3",
+			"cale_fisier":"book1.jpg",
+			"text_descriere":"Alta carte"
+		},
+		{
+			"anotimp":"primavara",
+			"titlu":"Carte4",
+			"cale_fisier":"book2.jpg",
+			"text_descriere":"A treia carte"
+		},
+		{
+			"anotimp":"vara",
+			"titlu":"Carte5",
+			"cale_fisier":"books.jpg",
+			"text_descriere":"Ultima carte"
+		},
+		{
+			"anotimp":"toamna",
+			"titlu":"Ochelari",
+			"cale_fisier":"glasses.jpg",
+			"text_descriere":"altceva"
+		},
+		{
+			"anotimp":"iarna",
+			"titlu":"Carti vechi",
+			"cale_fisier":"old-books.jpg",
+			"text_descriere":"vechi"
 		}
+		
 	]
 }

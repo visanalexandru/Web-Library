@@ -1,0 +1,42 @@
+#Galerie{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    counter-reset: nrimag;
+    figure{
+        img{
+            border-radius: 0px;
+            transition: all 0.8 linear;
+            transition:0.8s linear;
+            opacity: 1;
+        }
+        text-align: center;
+    }
+    
+    figcaption::before{
+        content:counter(nrimag, lower-roman) ")";
+        counter-increment: nrimag;
+    }
+    figure img:hover{
+        border-radius: 15px;
+        transition: all 0.8 linear;
+        transform: scale(0.6,0.6);
+        transform-origin: top ;
+        opacity: 0.5;
+    }
+    img{
+        width:100%;
+    }
+
+    $image_id : 1;
+    @for $line from 1 through 5{
+        @for $column from 1 through 3{
+            
+            @if ($column%2!=0) or ($line%2!=0){
+                figure:nth-child(#{$image_id}){
+                    grid-area: #{$line}/#{$column}/#{$line+1}/#{$column+1};
+                }
+                $image_id:$image_id+1;
+            }
+        }
+    }
+}

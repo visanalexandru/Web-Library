@@ -40,11 +40,11 @@ function creeazaImagini(){
     //console.log(obImagini);
     for (let imag of obImagini.imagini){
         let nume_imag, extensie;
-        [nume_imag, extensie ]=imag.fisier.split(".")// "abc.de".split(".") ---> ["abc","de"]
+        [nume_imag, extensie ]=imag.cale_fisier.split(".")// "abc.de".split(".") ---> ["abc","de"]
         let dim_mic=150
         
         imag.mic=`${obImagini.cale_galerie}/mic/${nume_imag}-${dim_mic}.webp` //nume-150.webp // "a10" b=10 "a"+b `a${b}`
-        imag.mare=`${obImagini.cale_galerie}/${imag.fisier}`;
+        imag.mare=`${obImagini.cale_galerie}/${imag.cale_fisier}`;
 
         if (!fs.existsSync(imag.mic)){
             sharp(__dirname+"/"+imag.mare).resize(dim_mic).toFile(__dirname+"/"+imag.mic);
@@ -60,6 +60,31 @@ function creeazaImagini(){
 }
 
 creeazaImagini();
+
+function alege_imagini(){
+
+    var anotimp_luni=["iarna","iarna","primavara","primavara","primavara","vara","vara","vara","toamna","toamna","toamna","iarna"]
+    var numar_maxim_imagini=10;
+    obImagini.imagini_selectate=[];
+
+    //anotimpul curent
+    const d=new Date();
+    let luna=d.getMonth();
+    let anotimp=anotimp_luni[luna]
+    
+    for (let imag of obImagini.imagini){
+        if(imag.anotimp==anotimp){
+            obImagini.imagini_selectate.push(imag);
+            
+            //Daca au fost selectate numarul maxim de imagini, break
+            if(obImagini.imagini_selectate.length==numar_maxim_imagini)
+                break;
+        }
+
+    }
+}
+
+alege_imagini();
 
 function creeazaErori(){
     var buf=fs.readFileSync(__dirname+"/resurse/json/erori.json").toString("utf8");

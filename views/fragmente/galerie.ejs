@@ -1,0 +1,31 @@
+<div id="Galerie">
+    
+    
+    <% var anotimp_luni=["iarna","iarna","primavara","primavara","primavara","vara","vara","vara","toamna","toamna","toamna","iarna"]
+    var numar_maxim_imagini=10; 
+    const d=new Date();
+    let luna=d.getMonth();
+    let anotimp=anotimp_luni[luna];
+    let cnt=0;
+     %>
+
+    <% for(let imag of locals.imagini){ %>
+        <% if(imag.anotimp==anotimp){ %>
+            <figure>
+                <picture>
+                    <source srcset="<%- imag.mic %>" media="(max-width:800px)">
+                    <source srcset="<%- imag.mediu%>" media="(max-width:1200px)">
+                    <img src="<%- imag.mare %>" alt="text alternativ">
+                </picture>
+                <figcaption> <%- imag.descriere%></figcaption>
+            </figure>
+            <% cnt++;
+             if(cnt==numar_maxim_imagini){
+                 break;
+             }
+             %>
+        <% } %>
+
+    <% } %>
+
+</div>

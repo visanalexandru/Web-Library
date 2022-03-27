@@ -67,20 +67,7 @@
                 </section>
 
                 <section>
-                    <div id="Galerie">
-                        <% for(let imag of locals.imagini){ %>
-                            <figure>
-                                <picture>
-                                    <source srcset="<%- imag.mic %>" media="(max-width:800px)">
-                                    <source srcset="<%- imag.mediu%>" media="(max-width:1200px)">
-                                    <img src="<%- imag.mare %>" alt="text alternativ">
-                                </picture>
-                                <figcaption> <%- imag.descriere%></figcaption>
-                            </figure>
-
-                        <% } %>
-
-                    </div>
+                    <%- include("../fragmente/galerie.ejs"); %>
                 </section>
 
 
