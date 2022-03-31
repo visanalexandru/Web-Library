@@ -1,6 +1,5 @@
 #Galerie {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   counter-reset: nrimag;
 }
 #Galerie figure {
@@ -26,44 +25,63 @@
 #Galerie img {
   width: 100%;
 }
-#Galerie figure:nth-child(1) {
-  grid-area: 1/1/2/2;
+
+@media screen and (min-width: 1200px) {
+  #Galerie {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  #Galerie figure:nth-child(1) {
+    grid-area: 1/1/2/2;
+  }
+  #Galerie figure:nth-child(2) {
+    grid-area: 1/2/2/3;
+  }
+  #Galerie figure:nth-child(3) {
+    grid-area: 1/3/2/4;
+  }
+  #Galerie figure:nth-child(4) {
+    grid-area: 2/1/3/2;
+  }
+  #Galerie figure:nth-child(5) {
+    grid-area: 2/3/3/4;
+  }
+  #Galerie figure:nth-child(6) {
+    grid-area: 3/1/4/2;
+  }
+  #Galerie figure:nth-child(7) {
+    grid-area: 3/2/4/3;
+  }
+  #Galerie figure:nth-child(8) {
+    grid-area: 3/3/4/4;
+  }
+  #Galerie figure:nth-child(9) {
+    grid-area: 4/1/5/2;
+  }
+  #Galerie figure:nth-child(10) {
+    grid-area: 4/3/5/4;
+  }
+  #Galerie figure:nth-child(11) {
+    grid-area: 5/1/6/2;
+  }
+  #Galerie figure:nth-child(12) {
+    grid-area: 5/2/6/3;
+  }
+  #Galerie figure:nth-child(13) {
+    grid-area: 5/3/6/4;
+  }
 }
-#Galerie figure:nth-child(2) {
-  grid-area: 1/2/2/3;
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+  #Galerie {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-#Galerie figure:nth-child(3) {
-  grid-area: 1/3/2/4;
-}
-#Galerie figure:nth-child(4) {
-  grid-area: 2/1/3/2;
-}
-#Galerie figure:nth-child(5) {
-  grid-area: 2/3/3/4;
-}
-#Galerie figure:nth-child(6) {
-  grid-area: 3/1/4/2;
-}
-#Galerie figure:nth-child(7) {
-  grid-area: 3/2/4/3;
-}
-#Galerie figure:nth-child(8) {
-  grid-area: 3/3/4/4;
-}
-#Galerie figure:nth-child(9) {
-  grid-area: 4/1/5/2;
-}
-#Galerie figure:nth-child(10) {
-  grid-area: 4/3/5/4;
-}
-#Galerie figure:nth-child(11) {
-  grid-area: 5/1/6/2;
-}
-#Galerie figure:nth-child(12) {
-  grid-area: 5/2/6/3;
-}
-#Galerie figure:nth-child(13) {
-  grid-area: 5/3/6/4;
+@media screen and (max-width: 800px) {
+  #Galerie {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  #Galerie img {
+    width: 60%;
+  }
 }
 
 /*# sourceMappingURL=galerie.css.map */

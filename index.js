@@ -1,6 +1,18 @@
 const express = require("express");
 const fs=require("fs");
 const sharp=require("sharp");
+const {Client} =require("pg");
+
+const client = new Client({
+    database: "postgres",
+    user: "postgres",
+    password: "postgres",
+    host: "localhost",
+    port: 5432,
+});
+client.connect();
+
+
 app = express();
 
 app.set("view engine", "ejs");
@@ -13,6 +25,19 @@ app.get(["/","/index", "/home"], function (req, res) {
 
 app.get("/*.ejs",function(req,res){
     randeazaEroare(res,403)
+})
+
+app.get("/produse",function(req,res){
+    client.query("select * from carti ",function(err,rezQuery){
+        res.render("pagini/produse",{produse:rezQuery.rows})
+    }); 
+})
+
+app.get("/produs/:id",function(req,res){
+    client.query("select * from carti where id="+id,function(err,rezQuery){
+        res.render("pagini/produs",{prod:rezQuery[0]})
+    });
+
 })
 
 app.get("/*", function (req, res) {
@@ -32,7 +57,6 @@ app.get("/*", function (req, res) {
 
     res.end();
 })
-
 
 function creeazaImagini(){
     var buf=fs.readFileSync(__dirname+"/resurse/json/galerie.json").toString("utf8");
