@@ -2,6 +2,10 @@ const express = require("express");
 const fs=require("fs");
 const sharp=require("sharp");
 const {Client} =require("pg");
+const ejs=require("ejs");
+const sass=require("sass");
+const { path } = require("express/lib/application");
+const { exec } = require("child_process");
 
 const client = new Client({
     database: "postgres",
@@ -23,6 +27,31 @@ app.get(["/","/index", "/home"], function (req, res) {
 }
 )
 
+app.get("*/galerie_animata.css",function(req,res){
+    var buf=fs.readFileSync(__dirname+"/resurse/css/galerie_animata.scss").toString("utf8");
+
+    randomInt=(Math.floor(Math.random()*5)+3)*2;
+    
+
+    result=ejs.render(buf,{num_img:randomInt});
+    console.log(result);
+
+
+    var path_scss=__dirname+"/temp/galerie_animata.scss";
+    fs.writeFileSync(path_scss,result);
+    try{
+        var compile_result=sass.compile(path_scss,{sourceMap:true}).css;
+        var path_css=__dirname+"/temp/galerie_animata.css";
+        fs.writeFileSync(path_css,compile_result);
+        res.setHeader("Content-Type","text/css");
+        res.sendFile(path_css);
+    }
+    catch(err){
+        console.log(err);
+        res.send("Eroare");
+    }
+})
+
 app.get("/*.ejs",function(req,res){
     randeazaEroare(res,403)
 })
@@ -34,11 +63,12 @@ app.get("/produse",function(req,res){
 })
 
 app.get("/produs/:id",function(req,res){
-    client.query("select * from carti where id="+id,function(err,rezQuery){
-        res.render("pagini/produs",{prod:rezQuery[0]})
+    client.query(`select * from carti where id= ${req.params.id}`,function(err,rezQuery){
+        res.render("pagini/produs",{prod:rezQuery.rows[0]})
     });
 
 })
+
 
 app.get("/*", function (req, res) {
     res.render("pagini" + req.url, function (err, rezRender) {

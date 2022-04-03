@@ -1,0 +1,71 @@
+@use "sass:math";
+
+$numar_imagini:<%- locals.num_img%>;
+$time_per_image:3;
+$total_time:$time_per_image*$numar_imagini;
+
+.galerie{
+    margin: 3rem;
+    width:400px;
+    height:300px;
+    border:1px solid black;
+    position:relative;
+    overflow:hidden;
+
+    border:1px solid black;
+    margin-bottom:5rem;
+}
+.galerie figcaption{
+    position:absolute;
+    bottom:0;
+    background:rgba(255,255,255,0.7);
+    width:100%;
+    text-align:center;
+}
+.galerie figure{
+    margin: 0;
+    padding: 0;
+    position:relative;
+    width:400px;
+    height:300px;
+}
+
+
+#galerie_exemplu figure{	
+    display:none;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:0;
+    animation-name:gal_exemplu;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    animation-fill-mode:forwards;
+    animation-duration:#{$total_time}s;	
+    transform-origin:0px center;
+}
+
+#galerie_exemplu:hover{	
+    figure{
+        animation-play-state: paused;
+    } 
+}
+
+@for $index from 1 through $numar_imagini{
+    #galerie_exemplu figure:nth-of-type(#{$index}){
+        display:block;
+        animation-name:gal_exemplu;
+        animation-timing-function:linear;
+        animation-iteration-count:infinite;
+        animation-fill-mode:forwards;
+        animation-duration:#{$total_time}s;	
+        transform-origin:0px center;
+        animation-delay:#{$total_time - ($index)*$time_per_image}s;
+    }
+}
+
+@keyframes gal_exemplu{ 
+    0% {z-index:30;clip-path: polygon(100% 0%, 100% 0%, 0% 100%, 0% 100%);} /*perioada 0-7% in care se afiseaza fara efect */
+	#{math.div($time_per_image,$total_time)*100}% {z-index:30;clip-path:polygon(0% -100%, 200% 100%, 100% 200%, -100% 0%);} /* de  aici doresc sa descresc si opacitatea;*/
+	#{math.div($time_per_image,$total_time)*300}% {z-index:-30;} /* de  aici doresc sa descresc si opacitatea;*/
+}
