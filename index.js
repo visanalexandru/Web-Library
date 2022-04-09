@@ -16,6 +16,8 @@ const client = new Client({
 });
 client.connect();
 
+const obGlobal={obImagini:null,obErori:null};
+
 
 app = express();
 
@@ -57,9 +59,12 @@ app.get("/*.ejs",function(req,res){
 })
 
 app.get("/produse",function(req,res){
-    client.query("select * from carti ",function(err,rezQuery){
-        res.render("pagini/produse",{produse:rezQuery.rows})
-    }); 
+    client.query("select * from unnest(enum_range(null::categ_colectie))", function(err, rezCateg){
+        console.log(rezCateg);
+        client.query("select * from carti ",function(err,rezQuery){
+            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows})
+        });
+    }) 
 })
 
 app.get("/produs/:id",function(req,res){
