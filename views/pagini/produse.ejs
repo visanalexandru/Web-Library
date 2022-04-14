@@ -39,8 +39,8 @@
         <br>
 
 
-        <label> Pret minim: <input type="range" id="inp-pret-min" value="0" min="0"  max="500"> <span id="infoRangeMin">(0)</span></label>
-        <label> Pret maxim: <input type="range" id="inp-pret-max" value="500" min="0"  max="500"> <span id="infoRangeMax">(500)</span></label>
+        <label> Pret minim: <input type="range" id="inp-pret-min" value="<%-locals.pretRange[0]%>" min="<%- locals.pretRange[0] %>"  max="<%-locals.pretRange[1]%>"> <span id="infoRangeMin">(<%-locals.pretRange[0] %>)</span></label>
+        <label> Pret maxim: <input type="range" id="inp-pret-max" value="<%-locals.pretRange[1]%>" min="<%- locals.pretRange[0] %>"  max="<%-locals.pretRange[1]%>"> <span id="infoRangeMax">(<%-locals.pretRange[1] %>)</span></label>
            <p>
         <button id="filtrare">Filtreaza</button> <button id="resetare">Reseteaza</button><br/>
         <button id="sortCrescNume">Sorteaza crescator dupa nume si pret</button>

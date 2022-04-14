@@ -78,10 +78,10 @@ window.addEventListener("load", function () {
         }
         document.getElementById("inp-nume").value="";
         document.getElementById("i_rad4").checked=true;
-        document.getElementById("inp-pret-min").value=0;
-        document.getElementById("inp-pret-max").value=500;
-        document.getElementById("infoRangeMin").innerHTML=" ("+0+")"
-        document.getElementById("infoRangeMax").innerHTML=" ("+500+")"
+        document.getElementById("inp-pret-min").value=document.getElementById("inp-pret-min").min;
+        document.getElementById("inp-pret-max").value=document.getElementById("inp-pret-max").max;
+        document.getElementById("infoRangeMin").innerHTML=" ("+document.getElementById("inp-pret-min").value+")"
+        document.getElementById("infoRangeMax").innerHTML=" ("+document.getElementById("inp-pret-max").value+")"
         document.getElementById("sel-toate").selected=true;
 
         var autori=document.getElementById("inp-authors");

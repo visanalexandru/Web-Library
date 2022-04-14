@@ -44,8 +44,16 @@ function gasire_autori(){
     })
 }
 
+function gasire_preturi(){
+    client.query("select min(pret),max(pret) from carti", function(err, rezCateg){
+        prodMinPret=Math.floor(rezCateg.rows[0]["min"]);
+        prodMaxPret=Math.ceil(rezCateg.rows[0]["max"]);
+    })
+}
+
 gasire_categorii();
 gasire_autori();
+gasire_preturi();
 
 app = express();
 
@@ -106,7 +114,7 @@ app.get("/*.ejs",function(req,res){
 app.get("/produse",function(req,res){
     client.query("select * from unnest(enum_range(null::categorie_varsta))", function(err, rezCateg){
         client.query("select id,nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti ",function(err,rezQuery){
-            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows,categorii_produse:prodCateg,autori:prodAutori})
+            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows,categorii_produse:prodCateg,autori:prodAutori,pretRange:[prodMinPret,prodMaxPret]})
         });
     }) 
 })
@@ -121,10 +129,9 @@ app.get("/produs/id/:id",function(req,res){
 app.get("/produse/categorie/:categorie",function(req,res){
     client.query("select * from unnest(enum_range(null::categorie_varsta))", function(err, rezCateg){
         client.query(`select * from carti where categorie='${req.params.categorie}'`,function(err,rezQuery){
-            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows,categorii_produse:prodCateg,autori:prodAutori})
+            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows,categorii_produse:prodCateg,autori:prodAutori,pretRange:[prodMinPret,prodMaxPret]})
         });
     }) 
-
 })
 
 
