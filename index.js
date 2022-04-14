@@ -73,6 +73,9 @@ app.get("*/galerie_animata.css",function(req,res){
 
     result=ejs.render(buf,{num_img:randomInt});
 
+    if (!fs.existsSync(__dirname+"/temp")){
+        fs.mkdirSync(__dirname+"/temp");
+    }
 
     var path_scss=__dirname+"/temp/galerie_animata.scss";
     fs.writeFileSync(path_scss,result);
