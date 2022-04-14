@@ -20,6 +20,15 @@ body {
   font-family: sans-serif;
 }
 
+body.dark{
+  --background-color:rgb(31, 31, 31);
+--lemon-yellow:rgb(64,27,66);
+  --light-yellow:rgba(255,255,255,0.2);
+  --cl-text:white;
+   text-shadow:0px 0px 2px black,0px 0px 1px black,0px 0px 1px black;
+  --gradient-body:linear-gradient(transparent, transparent 25%, rgba(255,255,255,0.5) 50%, transparent 75%, transparent);
+}
+
 .iframe-menu {
   display: flex;
   flex-direction: column;

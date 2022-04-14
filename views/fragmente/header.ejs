@@ -1,4 +1,16 @@
 <!-- The header-->
+<script>
+    var tema=localStorage.getItem("tema");
+    if(tema){
+        document.body.classList.add("dark");
+    }
+    else{
+        document.body.classList.remove("dark");
+    }
+
+</script>
+
+
 <header>
         <div id="Top"><br> </div>
         <h1> Librăria Libdivid</h1>
@@ -18,23 +30,34 @@
                 <!-- Home option-->
                 <li class="home">
                     <!-- Home icon, enabled on medium page size-->
-                    <a href="index">
+                    <a href="/index">
                         <span class="fas fa-home"> </span>
                     </a>
 
                     <!-- Enabled on maximum page size-->
-                    <a href="index"> Acasa </a>
+                    <a href="/index"> Acasa </a>
                 </li>
 
                 <!-- About link-->
                 <li>
-                    <a href="despre"> Despre</a>
+                    <a href="/despre"> Despre</a>
+                </li>
+
+                <li>
+                    <a href="/inregistrare"> Inregistrare</a>
                 </li>
 
 
                 <!-- Products link-->
                 <li>
-                    <a href="cumpara"> Cumpără</a>
+                    <a href="/produse"> Produse</a>
+                    <ul>
+                        <% for (let opt of locals.categorii_produse) { %>
+                            <li>
+                                <a href="/produse/categorie/<%- opt.unnest %>"> <%- opt.unnest %> </a>
+                            </li>
+                        <% } %>
+                    </ul>
                 </li>
 
 
@@ -43,26 +66,26 @@
 
                     <ul>
                         <li>
-                            <a href="index#Salut"> Bine ati venit!</a>
+                            <a href="/index#Salut"> Bine ati venit!</a>
                         </li>
                         <li>
-                            <a href="index#Lista"> Cele mai vandute carti</a>
-                        </li>
-
-                        <li>
-                            <a href="index#Citat"> Citatul zilei</a>
+                            <a href="/index#Lista"> Cele mai vandute carti</a>
                         </li>
 
                         <li>
-                            <a href="index#Ecranizari"> Ecranizari</a>
+                            <a href="/index#Citat"> Citatul zilei</a>
                         </li>
 
                         <li>
-                            <a href="index#Electronice"> Carti electronice</a>
+                            <a href="/index#Ecranizari"> Ecranizari</a>
                         </li>
 
                         <li>
-                            <a href="index#Contact"> Contact</a>
+                            <a href="/index#Electronice"> Carti electronice</a>
+                        </li>
+
+                        <li>
+                            <a href="/index#Contact"> Contact</a>
                         </li>
                     </ul>
 

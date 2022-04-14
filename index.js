@@ -6,6 +6,9 @@ const ejs=require("ejs");
 const sass=require("sass");
 const { path } = require("express/lib/application");
 const { exec } = require("child_process");
+const formidable= require('formidable');
+const crypto= require('crypto');
+const session= require('express-session');
 
 const client = new Client({
     database: "postgres",
@@ -16,8 +19,22 @@ const client = new Client({
 });
 client.connect();
 
-const obGlobal={obImagini:null,obErori:null};
+const obGlobal={obImagini:null,obErori:null,prodCateg:null};
 
+function gasire_categorii(){
+    client.query("select * from unnest(enum_range(null::categorie_carte))", function(err, rezCateg){
+        prodCateg=rezCateg.rows;
+    })
+}
+
+function gasire_autori(){
+    client.query("select distinct autor from carti", function(err, rezCateg){
+        prodAutori=rezCateg.rows;
+    })
+}
+
+gasire_categorii();
+gasire_autori();
 
 app = express();
 
@@ -25,7 +42,7 @@ app.set("view engine", "ejs");
 
 app.use("/resurse", express.static(__dirname + "/resurse"))
 app.get(["/","/index", "/home"], function (req, res) {
-    res.render("pagini/index.ejs",{ip:req.ip,imagini:obImagini.imagini});
+    res.render("pagini/index.ejs",{ip:req.ip,imagini:obImagini.imagini,categorii_produse:prodCateg});
 }
 )
 
@@ -53,28 +70,55 @@ app.get("*/galerie_animata.css",function(req,res){
     }
 })
 
+//--------------------------------utilizatori-------------------------------------------
+parolaServer="tehniciweb";
+app.post("/inreg",function(req,res){
+    var formular=new formidable.IncomingForm();
+    formular.parse(req,function(err,campuriText,campuriFisier){
+        console.log(campuriText);
+        var parolaCriptata=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
+        comandaInserare=`insert into utilizatori (username, nume, prenume, parola, email, culoare_chat) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' ) `;
+        client.query(comandaInserare,function(err,rezInserare){
+            if(err){
+                console.log(err)
+            }
+        })
+    });
+})
+
+
+
 app.get("/*.ejs",function(req,res){
     randeazaEroare(res,403)
 })
 
 app.get("/produse",function(req,res){
-    client.query("select * from unnest(enum_range(null::categorie_carte))", function(err, rezCateg){
-        client.query("select * from carti ",function(err,rezQuery){
-            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows})
+    client.query("select * from unnest(enum_range(null::categorie_varsta))", function(err, rezCateg){
+        client.query("select id,nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti ",function(err,rezQuery){
+            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows,categorii_produse:prodCateg,autori:prodAutori})
         });
     }) 
 })
 
-app.get("/produs/:id",function(req,res){
-    client.query(`select * from carti where id= ${req.params.id}`,function(err,rezQuery){
-        res.render("pagini/produs",{prod:rezQuery.rows[0]})
+app.get("/produs/id/:id",function(req,res){
+    client.query(`select nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti where id= ${req.params.id}`,function(err,rezQuery){
+        res.render("pagini/produs",{prod:rezQuery.rows[0],categorii_produse:prodCateg,autori:prodAutori})
     });
+
+})
+
+app.get("/produse/categorie/:categorie",function(req,res){
+    client.query("select * from unnest(enum_range(null::categorie_varsta))", function(err, rezCateg){
+        client.query(`select * from carti where categorie='${req.params.categorie}'`,function(err,rezQuery){
+            res.render("pagini/produse",{produse:rezQuery.rows, optiuni:rezCateg.rows,categorii_produse:prodCateg,autori:prodAutori})
+        });
+    }) 
 
 })
 
 
 app.get("/*", function (req, res) {
-    res.render("pagini" + req.url, function (err, rezRender) {
+    res.render("pagini" + req.url, {categorii_produse:prodCateg},function (err, rezRender) {
         if (err) {
             if (err.message.includes("Failed to lookup view")) {
                 randeazaEroare(res,404)

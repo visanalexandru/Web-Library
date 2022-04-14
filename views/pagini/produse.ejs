@@ -3,7 +3,8 @@
     <head>
         <meta name="description" content="Cofetaria Dulcelind ofera prajituri, torturi, produse de patiserie cu optiunea de achizitie online si livrare prin curier.">
         <meta name="keywords" content="cofetarie, Dulcelind, prajituri, torturi, dulce, pateuri, produse">
-        <title>Cofetăria Dulcelind - home</title>
+        <title>Produse</title>
+        <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css" />
         <%- include("../fragmente/head") %>     
         <script type="text/javascript" src=/resurse/produse.js></script>
     </head>
@@ -28,14 +29,26 @@
             </label>
         </div>
 
+        <label for="authors">Autori:</label>
+        <select name="authors" id="inp-authors" multiple>
+                <option selected="True"> Toti </option>
+                <% for (let opt of locals.autori) { %>
+                    <option><%- opt.autor%> </option>
+                <% } %>
+        </select>
+        <br>
 
-        <label> Pret minim: <input type="range" id="inp-pret" value="0" min="0"  max="500"> <span id="infoRange">(0)</span></label>
+
+        <label> Pret minim: <input type="range" id="inp-pret-min" value="0" min="0"  max="500"> <span id="infoRangeMin">(0)</span></label>
+        <label> Pret maxim: <input type="range" id="inp-pret-max" value="500" min="0"  max="500"> <span id="infoRangeMax">(500)</span></label>
            <p>
         <button id="filtrare">Filtreaza</button> <button id="resetare">Reseteaza</button><br/>
         <button id="sortCrescNume">Sorteaza crescator dupa nume si pret</button>
         <button id="sortDescrescNume">Sorteaza descrescator dupa nume si pret</button>
+        <button id="calcul">Calculeaza</button>
 
-        <label>Select simplu:
+
+        <label>Select subcategorie:
             <select id="inp-categorie">
                 <option id="sel-toate" selected value="toate">toate</option>
                 <% for (let opt of locals.optiuni) { %>
@@ -46,25 +59,41 @@
         
         </p>
         
-        <p id="p-suma">Apăsați Alt+"c" pentru suma preturilor produselor afișate. </p>
         <section id="produse">
             <h2>Produse</h2>
             <div class="grid-produse">
                 <% for( let prod of locals.produse) { %>
                     <article class="produs" >
-                        <h3 class="nume">Nume: <a href="/produs/<%-prod.id %>" ><span class="val-nume"><%- prod.nume%></span></a></h3>
-                        <div class="info-prod">
-                            <p class="pret">Pret: <span class="val-pret"><%- prod.pret%></span></p>
-                            <p class="pagini">Pagini: <span class="val-pagini"><%- prod.numar_pagini%></span></p>
-                        </div>
+                        <h3 class="nume">Nume: <a href="/produs/id/<%-prod.id %>" ><span class="val-nume"><%- prod.nume%></span></a></h3>
                         <p class="categorie">Categorie:<span class="val-categorie"><%- prod.categorie%></span></p>
-                        <figure>
-                            <a href="/produs/<%-prod.id %>" ><img src="/resurse/img/produse/<%- prod.imagine %>" style="width:18%;height:auto;" alt="[imagine <%- prod.nume %>]" /></a>
-                        </figure>
+                        <p class="descriere" > Descriere: <span class="val-descriere"><%- prod.descriere%></span></p>
+
+                        <div class="display-prod">
+
+                            <figure>
+                                <a href="/produs/id/<%-prod.id %>" ><img src="/resurse/img/produse/<%- prod.imagine %>"  alt="[imagine <%- prod.nume %>]" /></a>
+                            </figure>
+
+                            <div class="info-prod">
+                                <p class="pret">Pret: <span class="val-pret"><%- prod.pret%></span></p>
+                                <p class="pagini">Pagini: <span class="val-pagini"><%- prod.numar_pagini%></span></p>
+                                <p class="autor">Autor: <span class="val-autor"><%- prod.autor%></span></p>
+                                <p class="taguri">Taguri: <span class="val-taguri"><%- prod.taguri%></span></p>
+                                <p class="stoc">In Stoc: <span class="val-stoc"><%- prod.in_stoc%></span></p>
+                                <p class="data"> Data adaugare: <time datetime= "<%- prod.data_adaugare%>"><%- prod.data_adaugare %> </time> </p>
+                                <p class="subcategorie">Subcategorie:<span class="val-subcategorie"><%- prod.varsta_recomandata%></span></p>
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <br>
+                        <br>
                         <label class="selecteaza-cos">
-                            Selectează:<br/>
-                            <input type="checkbox" class="select-cos" value="<%-prod.id %>" autocomplete="off">
-                        </label>
+                                Selectează:<br/>
+                                <input type="checkbox" class="select-cos" value="<%-prod.id %>" autocomplete="off">
+                            </label>
+
+
                     </article>
                 <% }%>
             </div>
