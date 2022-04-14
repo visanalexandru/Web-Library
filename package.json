@@ -8,11 +8,11 @@
     "pg": "^8.7.3",
     "sass": "^1.49.11",
     "sharp": "^0.30.3"
-  }
+  },
 
   "engines": {
     "node":"17.x"
-  }
+  },
 
   "scripts": {
     "start":"node index.js"
