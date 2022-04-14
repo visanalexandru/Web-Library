@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "formidable": "^2.0.1",
+    "pg": "^8.7.3",
+    "sass": "^1.49.11",
+    "sharp": "^0.30.3"
+  }
+
+  "engines": {
+    "node":"17.x"
+  }
+
+  "scripts": {
+    "start":"node index.js"
+  }
+  
+}
