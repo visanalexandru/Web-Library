@@ -10,12 +10,23 @@ const formidable= require('formidable');
 const crypto= require('crypto');
 const session= require('express-session');
 
+// const client = new Client({
+//     database: "postgres",
+//     user: "postgres",
+//     password: "postgres",
+//     host: "localhost",
+//     port: 5432,
+// });
+
 const client = new Client({
     database: "postgres",
-    user: "postgres",
-    password: "postgres",
+    user: "iyblorsafdqvfd",
+    password: "77b72db0fdb861d9f86da5cb4c5be06b807623cd355d421f22310ac00242a220",
     host: "localhost",
     port: 5432,
+    ssl: {
+    	rejectUnauthorized: false
+  	}
 });
 client.connect();
 
