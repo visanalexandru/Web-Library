@@ -19,10 +19,10 @@ const session= require('express-session');
 // });
 
 const client = new Client({
-    database: "postgres",
+    database: "d6h9d2e24cfre8",
     user: "iyblorsafdqvfd",
     password: "77b72db0fdb861d9f86da5cb4c5be06b807623cd355d421f22310ac00242a220",
-    host: "localhost",
+    host: "ec2-34-197-84-74.compute-1.amazonaws.com",
     port: 5432,
     ssl: {
     	rejectUnauthorized: false
