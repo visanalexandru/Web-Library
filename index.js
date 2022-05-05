@@ -4,7 +4,7 @@ const sharp = require("sharp");
 const { Client } = require("pg");
 const ejs = require("ejs");
 const sass = require("sass");
-const { path } = require("express/lib/application");
+const  path  = require("path");
 const { exec } = require("child_process");
 const formidable = require('formidable');
 const crypto = require('crypto');
@@ -13,6 +13,7 @@ const { query } = require("express");
 const req = require("express/lib/request");
 const res = require("express/lib/response");
 const nodemailer = require("nodemailer");
+const { escapeRegExpChars } = require("ejs/lib/utils");
 
 const obGlobal = {
     obImagini: null,
@@ -53,6 +54,13 @@ else{
     });
 }
 client.connect();
+foldere=["temp","poze_uploadate"];
+for(let folder of foldere){
+    let cale_folder=path.join(__dirname,folder);
+    if(!fs.existsSync(cale_folder)){
+        fs.mkdirSync(cale_folder);
+    }
+}
 
 async function trimiteMail(email, subiect, mesajText, mesajHtml, atasamente = []) {
     var transp = nodemailer.createTransport({
@@ -133,10 +141,13 @@ app.use(session( //aici se creeaza proprietatea session a requestului
 app.set("view engine", "ejs");
 
 app.use("/resurse", express.static(__dirname + "/resurse"))
+app.use("/poze_uploadate", express.static(__dirname + "/poze_uploadate"))
 
 app.use("/*", function (req, res, next) {
     res.locals.utilizator = req.session.utilizator;
     res.locals.categorii_produse = prodCateg;
+    res.locals.mesajLogin=req.session.mesajLogin;
+    req.session.mesajLogin=null;
     next();
 })
 
@@ -172,7 +183,6 @@ app.get("*/galerie_animata.css", function (req, res) {
         res.send("Eroare");
     }
 })
-
 //--------------------------------utilizatori-------------------------------------------
 parolaServer="tehniciweb";
 app.post("/inreg",function(req, res){
@@ -185,8 +195,56 @@ app.post("/inreg",function(req, res){
         if(campuriText.username==""){
             eroare+="Username necompletat. ";
         }
+
+        if(campuriText.username.length>20){
+            eroare+="Username prea mare. ";
+        }
+
+        if(campuriText.nume==""){
+            eroare+="Nume necompletat. ";
+        }
+        if(campuriText.nume.length>20){
+            eroare+="Nume prea mare. ";
+        }
+
+        if(campuriText.prenume==""){
+            eroare+="Prenume necompletat. ";
+        }
+
+        if(campuriText.prenume.length>20){
+            eroare+="Nume prea mare. ";
+        }
+
+        if(campuriText.parola==""){
+            eroare+="Parola necompletata. ";
+        }
+
+        if(campuriText.parola.length>20){
+            eroare+="Parola prea mare. ";
+        }
+
+        if(campuriText.email==""){
+            eroare+="Email necompletat. ";
+        }
+
+        if(campuriText.email.length>100){
+            eroare+="Email prea mare. ";
+        }
+
         if(!campuriText.username.match(new RegExp("^[A-Za-z0-9]+$"))){
             eroare+="Username nu corespunde patternului. ";
+        }
+
+        if(!campuriText.nume.match(new RegExp("^[A-Z][a-z]+$"))){
+            eroare+="Numele nu corespunde patternului. ";
+        }
+
+        if(!campuriText.prenume.match(new RegExp("^[A-Z][a-z]+$"))){
+            eroare+="Prenumele nu corespunde patternului. ";
+        }
+
+        if(!campuriText.email.match(new RegExp("^[a-z0-9_-]+@[a-z0-9]+\\.[a-z]{2,3}$"))){
+            eroare+="Mail-ul nu corespunde patternului. ";
         }
         if(!eroare){
             queryUtiliz=`select username from utilizatori where username='${campuriText.username}'`;
@@ -207,8 +265,8 @@ app.post("/inreg",function(req, res){
                         else{
                             res.render("pagini/inregistrare", {raspuns: "Datele au fost introduse"});
                             let linkConfirmare=obGlobal.protocol+obGlobal.numeDomeniu+"/cod/"+token;
-                            trimiteMail(campuriText.email, "Te-ai inregistrat", "text",`<h1>Salut!</h1>
-                                                        <p style='color:blue'>Username-ul tau este ${campuriText.username}.</p>
+                            trimiteMail(campuriText.email, `Bună, ${campuriText.nume}`, "text",`<h1 style='background-color:lightblue'>Bine ai venit!</h1>
+                                                        <p>Username-ul tau este ${campuriText.username}.</p>
                                                         <a href='${linkConfirmare}'>Confirma contul</a>`);
                         }
                     });
@@ -267,13 +325,62 @@ app.post("/login", function (req, res) {
                     res.redirect("/index");
                 }
                 else {
-                    randeazaEroare(res, -1, "Login esuat", "Mail neconfirmat sau parola gresita");
+                    //randeazaEroare(res, -1, "Login esuat", "Mail neconfirmat sau parola gresita");
+                    req.session.mesajLogin="Login esuat";
+                    res.redirect("/index")
+                    
                 }
             }
         })
 
     })
 })
+
+// ---------------- Update profil 
+app.post("/profil", function(req, res){
+    console.log("profil");
+    if (!req.session.utilizator){
+        res.render("pagini/eroare_generala",{text:"Nu sunteti logat."});
+        return;
+    }
+    var formular= new formidable.IncomingForm();
+ 
+    formular.parse(req,function(err, campuriText, campuriFile){
+       
+        var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
+ 
+        //TO DO query
+        var queryUpdate=`update utilizatori set username='${campuriText.username}', nume='${campuriText.nume}',prenume='${campuriText.prenume}', email='${campuriText.email}', culoare_chat='${campuriText.culoare_chat}'  where parola='${criptareParola}'`;
+        console.log(queryUpdate);
+       
+        client.query(queryUpdate,  function(err, rez){
+            if(err){
+                console.log(err);
+                res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
+                return;
+            }
+            console.log(rez.rowCount);
+            if (rez.rowCount==0){
+                res.render("pagini/profil",{mesaj:"Update-ul nu s-a realizat. Verificati parola introdusa."});
+                return;
+            }
+            else{
+                req.session.utilizator.nume=campuriText.nume;
+                req.session.utilizator.prenume=campuriText.prenume;
+                req.session.utilizator.email=campuriText.email;
+                req.session.utilizator.culoare_chat=campuriText.culoare_chat;
+            }
+           
+            //TO DO actualizare sesiune
+ 
+            res.render("pagini/profil",{mesaj:"Update-ul s-a realizat cu succes."});
+ 
+        });
+       
+ 
+    });
+});
+
 
 app.get("/logout", function (req, res) {
     req.session.destroy();
