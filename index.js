@@ -339,8 +339,8 @@ app.post("/inreg",function(req, res){
 
 app.get("/confirmare_inreg/:token1/:username/:token2",function(req, res){
     let usernameRev=reverseString(req.params.username);
-    let comandaUpdate=`update utilizatori set confirmat_mail=true where username= '${usernameRev}' and token1='${req.params.token1}' and token2='${req.params.token2}'`;
-    client.query(comandaUpdate,function(err, rezUpdate){
+    let comandaUpdate='update utilizatori set confirmat_mail=true where username= $1::text and token1=$2::text and token2=$3::text';
+    client.query(comandaUpdate,[usernameRev,req.params.token1,req.params.token2],function(err, rezUpdate){
         if(err){
             console.log(err);
             randeazaEroare(res, 2);
@@ -409,10 +409,10 @@ app.post("/profil", function(req, res){
         var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
  
         //TO DO query
-        var queryUpdate=`update utilizatori set username='${campuriText.username}', nume='${campuriText.nume}',prenume='${campuriText.prenume}', email='${campuriText.email}', culoare_chat='${campuriText.culoare_chat}'  where parola='${criptareParola}'`;
+        var queryUpdate=`update utilizatori set nume=$1::text,prenume=$2::text, email=$3::text, culoare_chat=$4::text where username=$5::text and  parola=$6::text`;
         console.log(queryUpdate);
        
-        client.query(queryUpdate,  function(err, rez){
+        client.query(queryUpdate,[campuriText.nume,campuriText.prenume,campuriText.email,campuriText.culoare_chat,campuriText.username,criptareParola],  function(err, rez){
             if(err){
                 console.log(err);
                 res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
@@ -460,7 +460,8 @@ app.get("/produse", function (req, res) {
 })
 
 app.get("/produs/id/:id", function (req, res) {
-    client.query(`select nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti where id= ${req.params.id}`, function (err, rezQuery) {
+    let query="select nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti where id=$1";
+    client.query(query,[req.params.id], function (err, rezQuery) {
         res.render("pagini/produs", { prod: rezQuery.rows[0], autori: prodAutori })
     });
 
@@ -468,7 +469,8 @@ app.get("/produs/id/:id", function (req, res) {
 
 app.get("/produse/categorie/:categorie", function (req, res) {
     client.query("select * from unnest(enum_range(null::categorie_varsta))", function (err, rezCateg) {
-        client.query(`select * from carti where categorie='${req.params.categorie}'`, function (err, rezQuery) {
+        let query=`select * from carti where categorie=$1`;
+        client.query(query,[req.params.categorie], function (err, rezQuery) {
             res.render("pagini/produse", { produse: rezQuery.rows, optiuni: rezCateg.rows, autori: prodAutori, pretRange: [prodMinPret, prodMaxPret] })
         });
     })
@@ -489,8 +491,8 @@ app.post("/sterge_utiliz",function(req,res){
    var formular= new formidable.IncomingForm();
  
     formular.parse(req,function(err, campuriText, campuriFile){
-        var queryDelete=`delete from utilizatori where id=${campuriText.id_utiliz}`;
-        client.query(queryDelete,function(err,rezQuery){
+        var queryDelete=`delete from utilizatori where id=$1`;
+        client.query(queryDelete,[campuriText.id_utiliz],function(err,rezQuery){
             res.redirect("/useri");
         })
     })
