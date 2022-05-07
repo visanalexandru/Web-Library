@@ -59,6 +59,12 @@
                     <a href="/inregistrare"> Inregistrare</a>
                 </li>
 
+                <% if(locals.utilizator && locals.utilizator.rol=="admin"){ %>
+                    <li>
+                        <a href="/useri">Useri </a> 
+                    </li>
+                <% } %>
+
 
                 <!-- Products link-->
                 <li>

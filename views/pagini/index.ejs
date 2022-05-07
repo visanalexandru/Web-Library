@@ -61,6 +61,12 @@
                     </p>
                 </section>
 
+                <ul>
+                <% for(let u of locals.useriOnline) { %>
+                    <li> <%- u.username %>(<%- u.nume %>) </li>
+                <% } %>
+                </ul>
+
                 <section>
                     <h3> Parteneri</h3>
 

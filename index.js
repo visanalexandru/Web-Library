@@ -124,6 +124,21 @@ function gasire_preturi() {
     })
 }
 
+function getIp(req){//pentru Heroku
+    var ip = req.headers["x-forwarded-for"];//ip-ul userului pentru care este forwardat mesajul
+    if (ip){
+        let vect=ip.split(",");
+        return vect[vect.length-1];
+    }
+    else if (req.ip){
+        return req.ip;
+    }
+    else{
+     return req.connection.remoteAddress;
+    }
+}
+
+
 gasire_categorii();
 gasire_autori();
 gasire_preturi();
@@ -151,9 +166,35 @@ app.use("/*", function (req, res, next) {
     next();
 })
 
+function stergeAccesariVechi(){
+    queryDelete="delete from accesari now()-data_accesare >= interval '10 minutes' "
+    client.query(queryDelete,function(err,rezQuery){
+        if(err) console.log(err);
+    })
+}
+
+setInterval(stergeAccesariVechi,5*60*1000);
+
+app.get("/*",function(req,res,next){
+    let queryInsert="insert into accesari (ip,user_id,pagina) values($1::text,$2,$3::text)";
+    id_utiliz=req.session.utilizator?req.session.utilizator.id:null;
+    client.query(queryInsert,[getIp(req),id_utiliz,req.url],function(err,rezQuery){
+        if(err){
+            console.log(err);
+        }
+    })
+    next();
+})
 
 app.get(["/", "/index", "/home"], function (req, res) {
-    res.render("pagini/index.ejs", { ip: req.ip, imagini: obImagini.imagini });
+    queryAccesari="select nume,username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare <= interval '5 minutes')"
+    client.query(queryAccesari,function(err,rezQuery){
+        useri_online=[];
+        if(err) console.log(err);
+        else useri_online=rezQuery.rows;
+
+        res.render("pagini/index.ejs", { ip: getIp(req), imagini: obImagini.imagini,useriOnline:useri_online });
+    })
 }
 )
 
@@ -305,9 +346,9 @@ app.post("/login", function (req, res) {
 
         console.log(campuriText);
         var parolaCriptata = crypto.scryptSync(campuriText.parola, parolaServer, 64).toString('hex');
-        var querySelect = `select * from utilizatori where username='${campuriText.username}' and parola='${parolaCriptata}' and confirmat_mail=true`;
+        var querySelect = 'select * from utilizatori where username= $1::text and parola=$2::text and confirmat_mail=true';
 
-        client.query(querySelect, function (err, rezSelect) {
+        client.query(querySelect, [campuriText.username,parolaCriptata],function (err, rezSelect){
             if (err) {
                 console.log(err);
             }
@@ -315,6 +356,7 @@ app.post("/login", function (req, res) {
                 console.log(rezSelect.rows);
                 if (rezSelect.rows.length == 1) { //Daca am utilizatorul si a dat credentiale corecte
                     req.session.utilizator = {
+                        id:rezSelect.rows[0].id,
                         nume: rezSelect.rows[0].nume,
                         prenume: rezSelect.rows[0].prenume,
                         username: rezSelect.rows[0].username,
@@ -412,6 +454,28 @@ app.get("/produse/categorie/:categorie", function (req, res) {
         client.query(`select * from carti where categorie='${req.params.categorie}'`, function (err, rezQuery) {
             res.render("pagini/produse", { produse: rezQuery.rows, optiuni: rezCateg.rows, autori: prodAutori, pretRange: [prodMinPret, prodMaxPret] })
         });
+    })
+})
+
+app.get("/useri",function(req,res){
+    if(req.session.utilizator && req.session.utilizator.rol=="admin"){
+        client.query("select * from utilizatori", function(err,rezQuery){
+            res.render("pagini/useri",{useri:rezQuery.rows});
+        });
+    }
+    else{
+        randeazaEroare(res,403); 
+    }
+})
+
+app.post("/sterge_utiliz",function(req,res){
+   var formular= new formidable.IncomingForm();
+ 
+    formular.parse(req,function(err, campuriText, campuriFile){
+        var queryDelete=`delete from utilizatori where id=${campuriText.id_utiliz}`;
+        client.query(queryDelete,function(err,rezQuery){
+            res.redirect("/useri");
+        })
     })
 })
 
