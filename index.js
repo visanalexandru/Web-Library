@@ -19,7 +19,6 @@ const obGlobal = {
     obImagini: null,
     obErori: null,
     prodCateg: null,
-    sirAlphaNum: "",
     protocol: null,
     numeDomeniu: null,
     emailServer: "lweb16976@gmail.com"
@@ -87,22 +86,37 @@ async function trimiteMail(email, subiect, mesajText, mesajHtml, atasamente = []
 }
 
 
-
-var v_intervale = [[48, 57], [65, 90], [97, 122]];
-
-for (let interval of v_intervale) {
-    for (let i = interval[0]; i <= interval[1]; i++) {
-        obGlobal.sirAlphaNum += String.fromCharCode(i);
-    }
+function reverseString(s){
+    return s.split("").reverse().join("");
 }
 
-function genereazaToken(n) {
-    let token = "";
-    for (let i = 0; i < n; i++) {
-        token += obGlobal.sirAlphaNum[Math.floor(Math.random() * obGlobal.sirAlphaNum.length)]
+function generazaSirNum(n){
+    let cifre="";
+    for(let i=48;i<=57;i++){
+        cifre+=String.fromCharCode(i);
+    }
+
+    let token="";
+    for(let i=0;i<n;i++){
+        token += cifre[Math.floor(Math.random() * cifre.length)]
     }
     return token;
 }
+
+function generazaSirAlpha(n){
+    let litere="";
+    for(let i=65;i<=90;i++){
+        litere+=String.fromCharCode(i);
+    }
+
+    let token="";
+    for(let i=0;i<n;i++){
+        token += litere[Math.floor(Math.random() * litere.length)]
+    }
+    return token;
+}
+
+
 
 
 function gasire_categorii() {
@@ -296,8 +310,9 @@ app.post("/inreg",function(req, res){
                 }
                 else{
                     var parolaCriptata=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
-                    let token=genereazaToken(100);
-                    var comandaInserare=`insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, cod) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' ,'${token}') `;
+                    let token1=generazaSirNum(10);
+                    let token2=campuriText.username+'-'+generazaSirAlpha(70);
+                    var comandaInserare=`insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, token1,token2) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' ,'${token1}','${token2}') `;
                     client.query(comandaInserare, function(err, rezInserare){
                         if(err){
                             console.log(err);
@@ -305,7 +320,8 @@ app.post("/inreg",function(req, res){
                         }
                         else{
                             res.render("pagini/inregistrare", {raspuns: "Datele au fost introduse"});
-                            let linkConfirmare=obGlobal.protocol+obGlobal.numeDomeniu+"/cod/"+token;
+                            let usernameRev=reverseString(campuriText.username);
+                            let linkConfirmare=obGlobal.protocol+obGlobal.numeDomeniu+"/confirmare_inreg/"+token1+"/"+usernameRev+"/"+token2;
                             trimiteMail(campuriText.email, `Bună, ${campuriText.nume}`, "text",`<h1 style='background-color:lightblue'>Bine ai venit!</h1>
                                                         <p>Username-ul tau este ${campuriText.username}.</p>
                                                         <a href='${linkConfirmare}'>Confirma contul</a>`);
@@ -321,8 +337,9 @@ app.post("/inreg",function(req, res){
 });
 
 
-app.get("/cod/:token",function(req, res){
-    let comandaUpdate=`update utilizatori set confirmat_mail=true where cod='${req.params.token}'`;
+app.get("/confirmare_inreg/:token1/:username/:token2",function(req, res){
+    let usernameRev=reverseString(req.params.username);
+    let comandaUpdate=`update utilizatori set confirmat_mail=true where username= '${usernameRev}' and token1='${req.params.token1}' and token2='${req.params.token2}'`;
     client.query(comandaUpdate,function(err, rezUpdate){
         if(err){
             console.log(err);
