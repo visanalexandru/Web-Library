@@ -427,10 +427,16 @@ app.post("/profil", function(req, res){
     formular.parse(req,function(err, campuriText, campuriFile){
        
         var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
+
+        if(!campuriText.nparola){
+            res.render("pagini/profil",{err:"Introduceti parola noua."});
+        }
+
+        var parolaNoua=crypto.scryptSync(campuriText.nparola,parolaServer, 64).toString('hex');
  
         //TO DO query
-        var queryUpdate=`update utilizatori set nume=$1::text,prenume=$2::text, email=$3::text, culoare_chat=$4::text, imagine=$5::text where username=$6::text and  parola=$7::text`;
-        client.query(queryUpdate,[campuriText.nume,campuriText.prenume,campuriText.email,campuriText.culoare_chat,campuriFile.poza.originalFilename,campuriText.username,criptareParola],  function(err, rez){
+        var queryUpdate=`update utilizatori set nume=$1::text,prenume=$2::text, email=$3::text, culoare_chat=$4::text, imagine=$5::text,parola=$6::text where username=$7::text and  parola=$8::text`;
+        client.query(queryUpdate,[campuriText.nume,campuriText.prenume,campuriText.email,campuriText.culoare_chat,campuriFile.poza.originalFilename,parolaNoua,campuriText.username,criptareParola],  function(err, rez){
             if(err){
                 console.log(err);
                 res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
