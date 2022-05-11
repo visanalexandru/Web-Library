@@ -437,7 +437,7 @@ app.post("/profil", function(req, res){
                 return;
             }
             if (rez.rowCount==0){
-                res.render("pagini/profil",{mesaj:"Update-ul nu s-a realizat. Verificati parola introdusa."});
+                res.render("pagini/profil",{err:"Update-ul nu s-a realizat. Verificati parola introdusa."});
                 return;
             }
             else{
@@ -447,9 +447,14 @@ app.post("/profil", function(req, res){
                 req.session.utilizator.culoare_chat=campuriText.culoare_chat;
                 req.session.utilizator.imagine=campuriFile.poza.originalFilename;
             }
-           
+           trimiteMail(campuriText.email, `Bună, ${campuriText.nume}`, "text",`<h1 style='background-color:lightblue'>Ti-ai modificat contul!</h1>
+                                                        <p>Username-ul nou este ${campuriText.username}.</p>
+                                                        <p>Numele nou este ${campuriText.nume}.</p>
+                                                        <p>Prenumele nou este ${campuriText.prenume}.</p>
+                                                        <p>Culoarea noua a chat-ului este ${campuriText.culoare_chat}.</p>
+                                                        <p>Imaginea ta noua se numeste ${campuriFile.poza.originalFilename}.</p>
+                                                        `);
             //TO DO actualizare sesiune
- 
             res.render("pagini/profil",{mesaj:"Update-ul s-a realizat cu succes."});
  
         });
@@ -473,13 +478,6 @@ app.post("/profil", function(req, res){
         if(!fs.existsSync(caleUtiliz)){
             fs.mkdirSync(caleUtiliz);
         }
-        else{
-            if(imagine_last){
-                var fisier_stergere=path.join(caleUtiliz,imagine_last);
-                fs.unlinkSync(fisier_stergere);
-            }
-        }
-
         fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
     })
 

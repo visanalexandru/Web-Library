@@ -26,11 +26,9 @@
 			<%- include("../fragmente/header") %>
 		</header>
 		<main>
-		
 			<section>
 				<h2>Profil</h2>
-                <p>Mănânci prea multe prajituri și știi și tu asta!</p>
-				<p><%= locals.raspuns %></p>
+				<p><%= locals.err%></p>
 			</section>
 			<%- include("../fragmente/formular",{action:"/profil"}) %>
 		</main>
