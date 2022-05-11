@@ -181,7 +181,7 @@ app.use("/*", function (req, res, next) {
 })
 
 function stergeAccesariVechi(){
-    queryDelete="delete from accesari now()-data_accesare >= interval '10 minutes' "
+    queryDelete="delete from accesari where now()-data_accesare >= interval '10 minutes' "
     client.query(queryDelete,function(err,rezQuery){
         if(err) console.log(err);
     })
@@ -241,6 +241,7 @@ app.get("*/galerie_animata.css", function (req, res) {
 //--------------------------------utilizatori-------------------------------------------
 parolaServer="tehniciweb";
 app.post("/inreg",function(req, res){
+    var username;
     console.log("ceva");
     var formular= new formidable.IncomingForm()
     formular.parse(req, function(err, campuriText, campuriFisier ){
@@ -312,7 +313,7 @@ app.post("/inreg",function(req, res){
                     var parolaCriptata=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
                     let token1=generazaSirNum(10);
                     let token2=campuriText.username+'-'+generazaSirAlpha(70);
-                    var comandaInserare=`insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, token1,token2) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' ,'${token1}','${token2}') `;
+                    var comandaInserare=`insert into utilizatori (username, nume, prenume, parola, email, culoare_chat, token1,token2,imagine) values ('${campuriText.username}','${campuriText.nume}', '${campuriText.prenume}', '${parolaCriptata}', '${campuriText.email}', '${campuriText.culoare_chat}' ,'${token1}','${token2}','${campuriFisier.poza.originalFilename}') `;
                     client.query(comandaInserare, function(err, rezInserare){
                         if(err){
                             console.log(err);
@@ -333,6 +334,23 @@ app.post("/inreg",function(req, res){
         }
         else
             res.render("pagini/inregistrare", {err: "Eroare: "+eroare});
+    })
+    formular.on("field",function(nume,val){//1
+        if(nume=="username"){
+            username=val;
+        }
+
+    })
+    formular.on("fileBegin",function(nume,fisier){//2
+        caleUtiliz=path.join(__dirname,"poze_uploadate",username)
+        if(!fs.existsSync(caleUtiliz)){
+            fs.mkdirSync(caleUtiliz);
+        }
+        fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
+    })
+
+    formular.on("file",function(nume,fisier){ //3
+
     })
 });
 
@@ -380,6 +398,7 @@ app.post("/login", function (req, res) {
                         email: rezSelect.rows[0].email,
                         culoare_chat: rezSelect.rows[0].culoare_chat,
                         rol: rezSelect.rows[0].rol,
+                        imagine:rezSelect.rows[0].imagine
                     }
                     res.redirect("/index");
                 }
