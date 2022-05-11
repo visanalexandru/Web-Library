@@ -422,22 +422,20 @@ app.post("/profil", function(req, res){
         return;
     }
     var formular= new formidable.IncomingForm();
+    var imagine_last= req.session.utilizator.imagine;
  
     formular.parse(req,function(err, campuriText, campuriFile){
        
         var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
  
         //TO DO query
-        var queryUpdate=`update utilizatori set nume=$1::text,prenume=$2::text, email=$3::text, culoare_chat=$4::text where username=$5::text and  parola=$6::text`;
-        console.log(queryUpdate);
-       
-        client.query(queryUpdate,[campuriText.nume,campuriText.prenume,campuriText.email,campuriText.culoare_chat,campuriText.username,criptareParola],  function(err, rez){
+        var queryUpdate=`update utilizatori set nume=$1::text,prenume=$2::text, email=$3::text, culoare_chat=$4::text, imagine=$5::text where username=$6::text and  parola=$7::text`;
+        client.query(queryUpdate,[campuriText.nume,campuriText.prenume,campuriText.email,campuriText.culoare_chat,campuriFile.poza.originalFilename,campuriText.username,criptareParola],  function(err, rez){
             if(err){
                 console.log(err);
                 res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
                 return;
             }
-            console.log(rez.rowCount);
             if (rez.rowCount==0){
                 res.render("pagini/profil",{mesaj:"Update-ul nu s-a realizat. Verificati parola introdusa."});
                 return;
@@ -447,6 +445,7 @@ app.post("/profil", function(req, res){
                 req.session.utilizator.prenume=campuriText.prenume;
                 req.session.utilizator.email=campuriText.email;
                 req.session.utilizator.culoare_chat=campuriText.culoare_chat;
+                req.session.utilizator.imagine=campuriFile.poza.originalFilename;
             }
            
             //TO DO actualizare sesiune
@@ -457,6 +456,36 @@ app.post("/profil", function(req, res){
        
  
     });
+
+
+
+    formular.on("field",function(nume,val){//1
+        if(nume=="username"){
+            username=val;
+        }
+    })
+
+    formular.on("fileBegin",function(nume,fisier){//2
+
+        caleUtiliz=path.join(__dirname,"poze_uploadate",username)
+
+
+        if(!fs.existsSync(caleUtiliz)){
+            fs.mkdirSync(caleUtiliz);
+        }
+        else{
+            if(imagine_last){
+                var fisier_stergere=path.join(caleUtiliz,imagine_last);
+                fs.unlinkSync(fisier_stergere);
+            }
+        }
+
+        fisier.filepath=path.join(caleUtiliz,fisier.originalFilename);
+    })
+
+    formular.on("file",function(nume,fisier){ //3
+
+    })
 });
 
 
