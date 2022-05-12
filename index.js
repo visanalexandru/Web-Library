@@ -511,6 +511,15 @@ app.get("/produse", function (req, res) {
     })
 })
 
+app.get("/administrare", function (req, res) {
+    client.query("select id,nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti ", function (err, rezQuery) {
+        res.render("pagini/administrare", { produse: rezQuery.rows})
+    });
+})
+
+
+
+
 app.get("/produs/id/:id", function (req, res) {
     let query="select nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti where id=$1";
     client.query(query,[req.params.id], function (err, rezQuery) {
@@ -550,6 +559,22 @@ app.post("/sterge_utiliz",function(req,res){
     })
 })
 
+app.post("/blocheaza_utiliz",function(req,res){
+   var formular= new formidable.IncomingForm();
+ 
+    formular.parse(req,function(err, campuriText, campuriFile){
+        var queryBlocat=`select * from utilizatori where id=$1`
+        client.query(queryBlocat,[campuriText.id_utiliz],function(err,rezQuery){
+            if(rezQuery.rowCount!=0 && rezQuery.rows[0].blocat==false){
+                trimiteMail(rezQuery.rows[0].email, `Bună, ${rezQuery.rows[0].nume}`, "text",`<h1 style='background-color:lightblue'>Ai fost blocat!</h1>`);
+            }
+        })
+        var queryDelete=`update utilizatori set blocat= not blocat where id=$1`;
+        client.query(queryDelete,[campuriText.id_utiliz],function(err,rezQuery){
+            res.redirect("/useri");
+        })
+    })
+})
 
 app.get("/*", function (req, res) {
     res.render("pagini" + req.url, { categorii_produse: prodCateg }, function (err, rezRender) {

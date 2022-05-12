@@ -145,4 +145,20 @@ window.addEventListener("load", function () {
             },2000)
     }
     }
+    var checkboxuri=document.getElementsByClassName("select-cos");
+    for(let ch of checkboxuri){
+        ch.onchange=function(){
+            if(this.checked){//cos_virtual=>"1,5,2..."
+                iduriProduse=localStorage.getItem("cos_virtual")
+                if(iduriProduse){
+                    iduriProduse.split(',')
+                }
+                else{
+                    iduriProduse=[];
+                }
+                iduriProduse.push(this.value);
+                localStorage.setItem("cos_virtual",iduriProduse.join(","));
+            } 
+        }
+    }
 })

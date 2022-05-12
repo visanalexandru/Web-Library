@@ -3,10 +3,8 @@
     <head>
         <meta name="description" content="Cofetaria Dulcelind - utilizatori.">
         <meta name="keywords" content="cofetarie, Dulcelind, utilizatori">
-        <link rel="stylesheet" href="/resurse/css/useri.css" type="text/css" />
         <title>Cofetăria Dulcelind - utilizatori</title>
         <%- include("../fragmente/head") %>     
-        <script type="text/javascript" src=/resurse/js/produse.js></script>
     </head>
     <body>
     <%- include("../fragmente/header") %>
@@ -17,7 +15,7 @@
 
 		<table id="useri">
 		  <tr>
-			<th>id</th><th>Username</th><th>Nume</th><th>Prenume</th><th>Data</th><th>Rol</th>
+			<th>id</th><th>Username</th><th>Nume</th><th>Prenume</th><th>Data</th><th>Rol</th> <th> Blocat</th>
 		  </tr>
 
 		  <% for (var i = 0; i < useri.length; i++) { 
@@ -34,6 +32,17 @@
 				  %>
 				  <td><%=  sir_data %></td>
 				   <td><%=  useri[i].rol %></td>
+				   <td><%=  useri[i].blocat%></td>
+
+				   <td> 		
+					   <form method="post" action="/blocheaza_utiliz">
+						<label style="display:none">
+							Id: <input type="text" name="id_utiliz" value="<%= useri[i].id %>">
+						</label>
+						<input type="submit" value="Blocheaza/Deblocheaza">
+					   </form>
+					</td>
+
 				</tr> 
    
 				<% } %>			

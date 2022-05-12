@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html  lang="ro">
+    <head>
+        <title>Administrare produse</title>
+        <%- include("../fragmente/head") %>     
+    </head>
+    <body>
+    <%- include("../fragmente/header") %>
+
+    <main>
+        <section id="produse">
+            <h2>Produse</h2>
+            <div class="grid-produse">
+                <% for( let prod of locals.produse) { %>
+                    <article class="produs" >
+                        <h3 class="nume">Nume: <a href="/produs/id/<%-prod.id %>" ><span class="val-nume"><%- prod.nume%></span></a></h3>
+                        <p class="categorie">Categorie:<span class="val-categorie"><%- prod.categorie%></span></p>
+                        <p class="descriere" > Descriere: <span class="val-descriere"><%- prod.descriere%></span></p>
+                        <p class="pret">Pret: <span class="val-pret"><%- prod.pret%></span></p>
+                        <p class="pagini">Pagini: <span class="val-pagini"><%- prod.numar_pagini%></span></p>
+                        <p class="autor">Autor: <span class="val-autor"><%- prod.autor%></span></p>
+                        <p class="taguri">Taguri: <span class="val-taguri"><%- prod.taguri%></span></p>
+                        <p class="stoc">In Stoc: <span class="val-stoc"><%- prod.in_stoc%></span></p>
+                        <p class="data"> Data adaugare: <time datetime= "<%- prod.data_adaugare%>"><%- prod.data_adaugare %> </time> </p>
+                        <p class="subcategorie">Subcategorie:<span class="val-subcategorie"><%- prod.varsta_recomandata%></span></p>
+                        <p class="imagine">Imagine:<span class="val-imagine"><%- prod.imagine%></span></p>
+                        <br>
+                        <br>
+                        <br>
+                    </article>
+                <% }%>
+            </div>
+        </section>
+    </main>
+
+    <%- include("../fragmente/footer") %>
+    </body>
+</html>
