@@ -125,6 +125,12 @@ function gasire_categorii() {
     })
 }
 
+function gasire_subcategorii() {
+    client.query("select * from unnest(enum_range(null::categorie_varsta))", function (err, rezCateg) {
+        prodSubCateg = rezCateg.rows;
+    })
+}
+
 function gasire_autori() {
     client.query("select distinct autor from carti", function (err, rezCateg) {
         prodAutori = rezCateg.rows;
@@ -154,6 +160,7 @@ function getIp(req){//pentru Heroku
 
 
 gasire_categorii();
+gasire_subcategorii();
 gasire_autori();
 gasire_preturi();
 
@@ -175,6 +182,7 @@ app.use("/poze_uploadate", express.static(__dirname + "/poze_uploadate"))
 app.use("/*", function (req, res, next) {
     res.locals.utilizator = req.session.utilizator;
     res.locals.categorii_produse = prodCateg;
+    res.locals.categorii_varsta= prodSubCateg;
     res.locals.mesajLogin=req.session.mesajLogin;
     req.session.mesajLogin=null;
     next();
@@ -512,9 +520,14 @@ app.get("/produse", function (req, res) {
 })
 
 app.get("/administrare", function (req, res) {
-    client.query("select id,nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti ", function (err, rezQuery) {
-        res.render("pagini/administrare", { produse: rezQuery.rows})
-    });
+    if(req.session.utilizator && req.session.utilizator.rol=="admin"){
+        client.query("select id,nume,descriere,autor,numar_pagini,pret,categorie,taguri,in_stoc,imagine,varsta_recomandata,to_char(data_adaugare,'DD/MONTH/YYYY') as data_adaugare from carti ", function (err, rezQuery) {
+            res.render("pagini/administrare", { produse: rezQuery.rows})
+        });
+    }
+    else{
+        randeazaEroare(res,403);
+    }
 })
 
 
@@ -575,6 +588,74 @@ app.post("/blocheaza_utiliz",function(req,res){
         })
     })
 })
+
+app.post("/modificare_produs",function(req,res){
+   var formular= new formidable.IncomingForm();
+ 
+    formular.parse(req,function(err, campuriText, campuriFile){
+        var query="update carti set nume=$1::text, categorie=$2, descriere=$3::text,pret= $4, numar_pagini=$5, autor=$6::text,taguri=$7,in_stoc=$8,varsta_recomandata=$9,imagine=$10::text where id=$11";
+        id=campuriText.id;
+        nume=campuriText.nume;
+        categorie=campuriText.categorie;
+        descriere=campuriText.descriere;
+        pret=parseFloat(campuriText.pret);
+        pagini=parseInt(campuriText.pagini);
+        autor=campuriText.autor;
+        taguri="{"+campuriText.taguri+"}";
+        in_stoc=campuriText.in_stoc?"true":"false";
+        subcategorie=campuriText.subcategorie;
+        imagine=campuriText.imagine;
+
+         client.query(query,[nume,categorie,descriere,pret,pagini,autor,taguri,in_stoc,subcategorie,imagine,id],function(err,rezQuery){
+             if(err){
+                 console.log(err);
+             }
+             res.redirect("/administrare");
+         })
+    })
+})
+
+app.post("/adaugare_produs",function(req,res){
+   var formular= new formidable.IncomingForm();
+ 
+    formular.parse(req,function(err, campuriText, campuriFile){
+        var query="insert into carti (nume,categorie,descriere,pret,numar_pagini,autor,taguri,in_stoc,varsta_recomandata,imagine) values ($1::text, $2, $3::text,$4, $5, $6::text,$7,$8,$9,$10::text)";
+        nume=campuriText.nume;
+        categorie=campuriText.categorie;
+        descriere=campuriText.descriere;
+        pret=parseFloat(campuriText.pret);
+        pagini=parseInt(campuriText.pagini);
+        autor=campuriText.autor;
+        taguri="{"+campuriText.taguri+"}";
+        in_stoc=campuriText.in_stoc?"true":"false";
+        subcategorie=campuriText.subcategorie;
+        imagine=campuriText.imagine;
+
+         client.query(query,[nume,categorie,descriere,pret,pagini,autor,taguri,in_stoc,subcategorie,imagine],function(err,rezQuery){
+             if(err){
+                 console.log(err);
+             }
+             res.redirect("/administrare");
+         })
+    })
+})
+
+app.post("/stergere_produs",function(req,res){
+   var formular= new formidable.IncomingForm();
+ 
+    formular.parse(req,function(err, campuriText, campuriFile){
+        var query="delete from carti where id=$1";
+        id=campuriText.id;
+
+         client.query(query,[id],function(err,rezQuery){
+             if(err){
+                 console.log(err);
+             }
+             res.redirect("/administrare");
+         })
+    })
+})
+
 
 app.get("/*", function (req, res) {
     res.render("pagini" + req.url, { categorii_produse: prodCateg }, function (err, rezRender) {

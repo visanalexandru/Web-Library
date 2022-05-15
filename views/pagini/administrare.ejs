@@ -13,22 +13,178 @@
             <div class="grid-produse">
                 <% for( let prod of locals.produse) { %>
                     <article class="produs" >
-                        <h3 class="nume">Nume: <a href="/produs/id/<%-prod.id %>" ><span class="val-nume"><%- prod.nume%></span></a></h3>
-                        <p class="categorie">Categorie:<span class="val-categorie"><%- prod.categorie%></span></p>
-                        <p class="descriere" > Descriere: <span class="val-descriere"><%- prod.descriere%></span></p>
-                        <p class="pret">Pret: <span class="val-pret"><%- prod.pret%></span></p>
-                        <p class="pagini">Pagini: <span class="val-pagini"><%- prod.numar_pagini%></span></p>
-                        <p class="autor">Autor: <span class="val-autor"><%- prod.autor%></span></p>
-                        <p class="taguri">Taguri: <span class="val-taguri"><%- prod.taguri%></span></p>
-                        <p class="stoc">In Stoc: <span class="val-stoc"><%- prod.in_stoc%></span></p>
-                        <p class="data"> Data adaugare: <time datetime= "<%- prod.data_adaugare%>"><%- prod.data_adaugare %> </time> </p>
-                        <p class="subcategorie">Subcategorie:<span class="val-subcategorie"><%- prod.varsta_recomandata%></span></p>
-                        <p class="imagine">Imagine:<span class="val-imagine"><%- prod.imagine%></span></p>
-                        <br>
-                        <br>
-                        <br>
+                        <form method="post" class="update_produs" action="/modificare_produs"> 
+
+                            <p>
+                                <label style="display:none">
+                                    Id: <input type="text" name="id" value="<%- prod.id%>">
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Nume: <input type="text" name="nume" value="<%- prod.nume %>">
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    Categorie: 
+                                    <select name="categorie"> 
+                                        <% for (let categ of locals.categorii_produse){ %>
+                                            <option value="<%- categ.unnest %>" <%-categ.unnest==prod.categorie? "selected":""%>> <%- categ.unnest %> </option>
+                                        <% } %>
+                                    </select>
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Descriere: <input type="text" name="descriere" value="<%- prod.descriere%>">
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                        Pret: <input type="number" name="pret" value="<%- prod.pret%>">
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Pagini: <input type="number" name="pagini" value="<%- prod.numar_pagini%>">
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Autor: <input type="text" name="autor" value="<%- prod.autor%>">
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Taguri: <input type="text" name="taguri" value="<%- prod.taguri%>">
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    In stoc: <input type="checkbox" name="in_stoc" <%- prod.in_stoc==true?'checked':''%> >
+                                </label>
+                            </p>
+
+
+                            <p>
+                                <label>
+                                    Subcategorie: 
+                                    <select name="subcategorie"> 
+                                        <% for (let categ of locals.categorii_varsta){ %>
+                                            <option value="<%- categ.unnest %>" <%-categ.unnest==prod.varsta_recomandata? "selected":"" %>> <%- categ.unnest %> </option>
+                                        <% } %>
+                                    </select>
+                                </label>
+                            </p>
+
+                            <p>
+                                <label>
+                                    Imagine: <input type="text" name="imagine" value="<%- prod.imagine%>">
+                                </label>
+                            </p>
+
+                            <input type="submit" value="Modifica">
+                        </form>
+                        <form method="post" class="stergere_produs" action="/stergere_produs">
+                            <label style="display:none">
+                                Id: <input type="text" name="id" value="<%- prod.id%>">
+                            </label>
+                            <input type="submit" value="Sterge">
+                        </form>
+
+
+
+
                     </article>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 <% }%>
+
+                <form method="post" class="adaugare_produs" action="/adaugare_produs"> 
+                    <p> Adauga un produs nou:</p>
+                    <p>
+                        <label>
+                            Nume: <input type="text" name="nume">
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Categorie: 
+                            <select name="categorie"> 
+                                <% for (let categ of locals.categorii_produse){ %>
+                                    <option value="<%- categ.unnest %>" > <%- categ.unnest %> </option>
+                                <% } %>
+                            </select>
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            Descriere: <input type="text" name="descriere">
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                                Pret: <input type="number" name="pret">
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            Pagini: <input type="number" name="pagini">
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            Autor: <input type="text" name="autor" >
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            Taguri: <input type="text" name="taguri">
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            In stoc: <input type="checkbox" name="in_stoc" >
+                        </label>
+                    </p>
+
+
+                    <p>
+                        <label>
+                            Subcategorie: 
+                            <select name="subcategorie"> 
+                                <% for (let categ of locals.categorii_varsta){ %>
+                                    <option value="<%- categ.unnest %>" > <%- categ.unnest %> </option>
+                                <% } %>
+                            </select>
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            Imagine: <input type="text" name="imagine">
+                        </label>
+                    </p>
+
+                    <input type="submit" value="Adauga">
+                </form>
+
             </div>
         </section>
     </main>
