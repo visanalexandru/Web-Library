@@ -75,6 +75,14 @@
                                 <a href="/produse/categorie/<%- opt.unnest %>"> <%- opt.unnest %> </a>
                             </li>
                         <% } %>
+
+                        <% if(locals.utilizator && locals.utilizator.rol=="admin"){ %>
+                                <li>
+                                    <a href="/administrare">Administrare</a> 
+                                </li>
+                        <% } %>
+
+
                     </ul>
                 </li>
 
