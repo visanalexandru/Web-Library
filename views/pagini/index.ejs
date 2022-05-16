@@ -63,7 +63,7 @@
 
                 <ul>
                 <% for(let u of locals.useriOnline) { %>
-                    <li> <%- u.username %>(<%- u.nume %>) </li>
+                    <li> <%- u.username %> <a href="mailto:<%-u.email %>"> (<%- u.email%>) </a> </li>
                 <% } %>
                 </ul>
 

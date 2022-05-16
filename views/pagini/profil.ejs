@@ -13,7 +13,7 @@
 				document.getElementById("inp-nume").value="<%= locals.utilizator.nume %>";
 				document.getElementById("inp-prenume").value="<%= locals.utilizator.prenume %>";
 				document.getElementById("inp-email").value="<%= locals.utilizator.email %>";
-				document.getElementById("p-reintrod").remove();
+				document.getElementById("p-reintrod").children[0].firstChild.textContent="Parola noua: ";
 				document.getElementById("p-noua").style.display='block';
 				var optiuni=document.getElementById("sel-culoare").options
 				for (let opt of optiuni)

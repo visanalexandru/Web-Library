@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ro">
+	<head>
+		<title>Stergere cont</title>
+		<%- include("../fragmente/head") %>
+	</head>
+
+	<body>
+		<header>
+			<%- include("../fragmente/header") %>
+		</header>
+
+		<main>
+			<section>
+				<h2>Stergere Cont</h2>
+				<p><%= locals.err%></p>
+
+                <form id="form_stergere"  method="post" action="/stergere_cont"  enctype="multipart/form-data">
+                    <p>
+                        <label>
+                            Parola: <input id="parl" type="password" required  name="parola" maxlength="20" pattern="[A-Za-z][A-Za-z0-9_]+">
+                        </label>
+                    </p>
+                    <input type="submit" value="Trimite">
+                </form>
+
+
+			</section>
+		</main>
+		
+		<%- include("../fragmente/footer") %>
+		
+	</body>
+</html>

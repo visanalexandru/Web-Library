@@ -199,17 +199,20 @@ setInterval(stergeAccesariVechi,5*60*1000);
 
 app.get("/*",function(req,res,next){
     let queryInsert="insert into accesari (ip,user_id,pagina) values($1::text,$2,$3::text)";
-    id_utiliz=req.session.utilizator?req.session.utilizator.id:null;
-    client.query(queryInsert,[getIp(req),id_utiliz,req.url],function(err,rezQuery){
-        if(err){
-            console.log(err);
-        }
-    })
+    if(req.session.utilizator && req.session.utilizator.rol=="admin"){
+        id_utiliz=req.session.utilizator.id;
+        client.query(queryInsert,[getIp(req),id_utiliz,req.url],function(err,rezQuery){
+            if(err){
+                console.log(err);
+            }
+        })
+    }
+
     next();
 })
 
 app.get(["/", "/index", "/home"], function (req, res) {
-    queryAccesari="select nume,username from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare <= interval '5 minutes')"
+    queryAccesari="select username,email from utilizatori where id in (select distinct user_id from accesari where now()-data_accesare <= interval '5 minutes')"
     client.query(queryAccesari,function(err,rezQuery){
         useri_online=[];
         if(err) console.log(err);
@@ -422,6 +425,47 @@ app.post("/login", function (req, res) {
     })
 })
 
+app.get("/stergere_cont",function(req,res){
+    if (!req.session.utilizator){
+            res.render("pagini/eroare_generala",{text:"Nu sunteti logat."});
+            return;
+    }
+    res.render("pagini/stergere_cont");
+})
+
+
+app.post("/stergere_cont",function(req,res){
+    if (!req.session.utilizator){
+            res.render("pagini/eroare_generala",{text:"Nu sunteti logat."});
+            return;
+    }
+
+    var formular= new formidable.IncomingForm();
+
+    formular.parse(req,function(err, campuriText, campuriFile){
+        var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
+        var query="delete from utilizatori where id=$1 and parola=$2::text";
+        client.query(query,[req.session.utilizator.id,criptareParola],function(err,rez){
+
+            if(err){
+                console.log(err);
+                res.render("pagini/eroare_generala",{text:"Eroare baza date. Incercati mai tarziu."});
+                return;
+            }
+            if (rez.rowCount==0){
+                res.render("pagini/stergere_cont",{err:"Update-ul nu s-a realizat. Verificati parola introdusa."});
+                return;
+            }
+            else{
+                trimiteMail(req.session.utilizator.email, `La revedere, ${req.session.utilizator.username}! `, "text",`<h1 style='background-color:lightblue'>Ne pare rau ca pleci!</h1>`);
+                req.session.utilizator=null;
+                res.redirect("index");
+            }
+        })
+    }
+    )
+})
+
 // ---------------- Update profil 
 app.post("/profil", function(req, res){
     console.log("profil");
@@ -436,11 +480,11 @@ app.post("/profil", function(req, res){
        
         var criptareParola=crypto.scryptSync(campuriText.parola,parolaServer, 64).toString('hex');
 
-        if(!campuriText.nparola){
+        if(!campuriText.rparola){
             res.render("pagini/profil",{err:"Introduceti parola noua."});
         }
 
-        var parolaNoua=crypto.scryptSync(campuriText.nparola,parolaServer, 64).toString('hex');
+        var parolaNoua=crypto.scryptSync(campuriText.rparola,parolaServer, 64).toString('hex');
  
         //TO DO query
         var queryUpdate=`update utilizatori set nume=$1::text,prenume=$2::text, email=$3::text, culoare_chat=$4::text, imagine=$5::text,parola=$6::text where username=$7::text and  parola=$8::text`;
